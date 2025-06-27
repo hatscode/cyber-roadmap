@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | CyberSecurity Specialist</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="cyber-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-logo">
+            <span class="glow-text">// CYBER_</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link"><i class="fas fa-terminal"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link"><i class="fas fa-user-secret"></i> About</a></li>
+            <li><a href="portfolio.html" class="nav-link active"><i class="fas fa-folder"></i> Portfolio</a></li>
+            <li><a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <div class="hamburger"></div>
+        </div>
+    </nav>
+
+    <main class="cyber-main portfolio-page">
+        <section class="portfolio-hero">
+            <h1 class="cyber-heading glitch" data-text="MISSION_LOGS">MISSION_LOGS</h1>
+            <p class="cyber-subtitle">// Case studies from security engagements</p>
+            <div class="matrix-rain" aria-hidden="true"></div>
+        </section>
+
+        <section class="portfolio-content">
+            <div class="portfolio-filters">
+                <button class="cyber-button small active" data-filter="all">ALL MISSIONS</button>
+                <button class="cyber-button small" data-filter="pentest">PEN TEST</button>
+                <button class="cyber-button small" data-filter="research">RESEARCH</button>
+                <button class="cyber-button small" data-filter="consulting">CONSULTING</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="pentest">
+                    <div class="project-header">
+                        <div class="project-badge pentest">PENETRATION TEST</div>
+                        <h3 class="project-title">E-Commerce Platform Assessment</h3>
+                        <div class="project-meta">
+                            <span class="project-date">2023</span>
+                            <span class="project-duration">2 weeks</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p>Comprehensive security assessment of a large e-commerce platform resulting in identification of critical vulnerabilities including SQL injection and privilege escalation flaws.</p>
+                        <ul class="project-tech">
+                            <li>Burp Suite</li>
+                            <li>OWASP ZAP</li>
+                            <li>Custom Python scripts</li>
+                        </ul>
+                    </div>
+                    <div class="project-footer">
+                        <a href="#" class="cyber-button small">
+                            <span class="glow"></span>
+                            <span class="text">CASE DETAILS</span>
+                        </a>
+                        <div class="project-result">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>12 Critical vulnerabilities patched</span>
+                        </div>
+                    </div>
+                    <div class="project-hover">
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">94%</span>
+                                <span class="stat-label">COVERAGE</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">A+</span>
+                                <span class="stat-label">FINAL GRADE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-category="research">
+                    <div class="project-header">
+                        <div class="project-badge research">VULN RESEARCH</div>
+                        <h3 class="project-title">IoT Device Exploit Chain</h3>
+                        <div class="project-meta">
+                            <span class="project-date">2022</span>
+                            <span class="project-duration">6 months</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p>Discovered and weaponized an exploit chain affecting popular IoT devices leading to remote code execution and firmware extraction.</p>
+                        <ul class="project-tech">
+                            <li>Ghidra</li>
+                            <li>QEMU</li>
+                            <li>ROP chain development</li>
+                        </ul>
+                    </div>
+                    <div class="project-footer">
+                        <a href="#" class="cyber-button small">
+                            <span class="glow"></span>
+                            <span class="text">RESEARCH PAPER</span>
+                        </a>
+                        <div class="project-result">
+                            <i class="fas fa-bug"></i>
+                            <span>CVE-2022-XXXXX assigned</span>
+                        </div>
+                    </div>
+                    <div class="project-hover">
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">15</span>
+                                <span class="stat-label">DEVICES</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">6.8</span>
+                                <span class="stat-label">CVSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-category="consulting">
+                    <div class="project-header">
+                        <div class="project-badge consulting">CONSULTING</div>
+                        <h3 class="project-title">Financial Institution Security Audit</h3>
+                        <div class="project-meta">
+                            <span class="project-date">2021</span>
+                            <span class="project-duration">1 month</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p>Conducted full security audit for multinational bank, identifying weaknesses in their internal security controls and monitoring systems.</p>
+                        <ul class="project-tech">
+                            <li>Nmap</li>
+                            <li>Metasploit</li>
+                            <li>Cobalt Strike</li>
+                        </ul>
+                    </div>
+                    <div class="project-footer">
+                        <a href="#" class="cyber-button small">
+                            <span class="glow"></span>
+                            <span class="text">READ REPORT</span>
+                        </a>
+                        <div class="project-result">
+                            <i class="fas fa-chart-line"></i>
+                            <span>37% risk reduction</span>
+                        </div>
+                    </div>
+                    <div class="project-hover">
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">SUCCESS</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">42</span>
+                                <span class="stat-label">RECOMMENDATIONS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card" data-category="pentest">
+                    <div class="project-header">
+                        <div class="project-badge pentest">RED TEAM</div>
+                        <h3 class="project-title">Corporate Network Breach Simulation</h3>
+                        <div class="project-meta">
+                            <span class="project-date">2020</span>
+                            <span class="project-duration">3 weeks</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p>Simulated advanced persistent threat against Fortune 500 company, gaining domain admin privileges within 72 hours.</p>
+                        <ul class="project-tech">
+                            <li>Custom C2 framework</li>
+                            <li>Kerberoasting</li>
+                            <li>Golden Ticket attack</li>
+                        </ul>
+                    </div>
+                    <div class="project-footer">
+                        <a href="#" class="cyber-button small">
+                            <span class="glow"></span>
+                            <span class="text">CASE STUDY</span>
+                        </a>
+                        <div class="project-result">
+                            <i class="fas fa-user-secret"></i>
+                            <span>Full domain compromise</span>
+                        </div>
+                    </div>
+                    <div class="project-hover">
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">DETECTIONS</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4</span>
+                                <span class="stat-label">PIVOTS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="cyber-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="glow-text">// CYBER_SECURITY</span>
+                <p class="footer-tagline">Protecting digital assets through offensive security</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4 class="footer-heading">NAVIGATION</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4 class="footer-heading">CONTACT</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> secure@example.com</li>
+                    <li><i class="fas fa-key"></i> PGP: 0xABCDEF123456</li>
+                    <li><i class="fas fa-phone"></i> Signal: +1 234 567 890</li>
+                </ul>
+            </div>
+            
+            <div class="footer-social">
+                <h4 class="footer-heading">CONNECT</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="HackTheBox"><i class="fas fa-cube"></i></a>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; 2023 CyberSecurity Specialist</p>
+                    <p>All rights reserved</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bar">
+            <div class="security-status">
+                <span class="status-indicator active"></span>
+                <span>SECURE CONNECTION ESTABLISHED</span>
+            </div>
+            <div class="footer-meta">
+                <span>ENCRYPTED: AES-256</span>
+                <span>LAST AUDIT: 2023-06-15</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

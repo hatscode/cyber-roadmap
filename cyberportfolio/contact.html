@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Contact | CyberSecurity Specialist</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="cyber-overlay"></div>
+    
+    <nav class="cyber-nav">
+        <div class="nav-logo">
+            <span class="glow-text">// CYBER_</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link"><i class="fas fa-terminal"></i> Home</a></li>
+            <li><a href="about.html" class="nav-link"><i class="fas fa-user-secret"></i> About</a></li>
+            <li><a href="portfolio.html" class="nav-link"><i class="fas fa-folder"></i> Portfolio</a></li>
+            <li><a href="contact.html" class="nav-link active"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="nav-toggle">
+            <div class="hamburger"></div>
+        </div>
+    </nav>
+
+    <main class="cyber-main contact-page">
+        <section class="contact-hero">
+            <h1 class="cyber-heading glitch" data-text="SECURE_CONNECTION">SECURE_CONNECTION</h1>
+            <p class="cyber-subtitle">// Encrypted communication only</p>
+            <div class="connection-status">
+                <span class="status-indicator active"></span>
+                <span class="status-text">ESTABLISHING SECURE CHANNEL...</span>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="secure-badge">
+                        <i class="fas fa-lock"></i>
+                        <span>END-TO-END ENCRYPTED</span>
+                    </div>
+                    
+                    <h3 class="info-heading"><i class="fas fa-key"></i> PGP_KEY</h3>
+                    <div class="pgp-fingerprint">
+                        <code>0xABCDEF1234567890</code>
+                    </div>
+                    <button class="cyber-button small download-key">
+                        <span class="glow"></span>
+                        <span class="text"><i class="fas fa-download"></i> DOWNLOAD PUBLIC KEY</span>
+                    </button>
+                    
+                    <div class="contact-methods">
+                        <h3 class="info-heading"><i class="fas fa-shield-alt"></i> VERIFIED_CONTACTS</h3>
+                        <ul class="method-list">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span>secure@example.com</span>
+                                <span class="verification-badge verified">
+                                    <i class="fas fa-check-circle"></i> Verified
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fas fa-comment-dots"></i>
+                                <span>Signal: +1 234 567 8900</span>
+                                <span class="verification-badge verified">
+                                    <i class="fas fa-check-circle"></i> Verified
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fab fa-telegram"></i>
+                                <span>@secure_contact</span>
+                                <span class="verification-badge unverified">
+                                    <i class="fas fa-exclamation-triangle"></i> Unverified
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <form id="secure-contact-form" class="contact-form">
+                    <div class="form-header">
+                        <h3><i class="fas fa-paper-plane"></i> ENCRYPTED_MESSAGE</h3>
+                        <div class="encryption-status">
+                            <span class="encryption-indicator"></span>
+                            <span>PGP ENCRYPTION: <span class="encryption-level">INACTIVE</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">YOUR_IDENTITY</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="input-verify">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="verify-text">Anonymous</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">CONTACT_POINT</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="input-verify">
+                            <i class="fas fa-check-circle verified"></i>
+                            <span class="verify-text">Valid format</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">MISSION_CLASSIFICATION</label>
+                        <select id="subject" name="subject">
+                            <option value="security">Security Consultation</option>
+                            <option value="pentest">Penetration Testing</option>
+                            <option value="research">Vulnerability Research</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">MESSAGE_CONTENT</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                        <div class="privacy-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>This message will be encrypted before transmission</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="cyber-button small test-encryption">
+                            <span class="glow"></span>
+                            <span class="text"><i class="fas fa-lock"></i> TEST ENCRYPTION</span>
+                        </button>
+                        <button type="submit" class="cyber-button">
+                            <span class="glow"></span>
+                            <span class="text"><i class="fas fa-paper-plane"></i> SEND SECURE MESSAGE</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="cyber-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="glow-text">// CYBER_SECURITY</span>
+                <p class="footer-tagline">Secure communications protected</p>
+            </div>
+            
+            <div class="footer-meta">
+                <p><i class="fas fa-fingerprint"></i> SESSION ID: <span id="session-id">a1b2c3d4-e5f6-7890</span></p>
+                <p><i class="fas fa-clock"></i> LAST AUDIT: 2023-06-15</p>
+                <p><i class="fas fa-lock"></i> CONNECTION: AES-256 ENCRYPTED</p>
+            </div>
+        </div>
+        
+        <div class="footer-bar">
+            <div class="security-status">
+                <span class="status-indicator active"></span>
+                <span>SECURE CHANNEL ACTIVE • NO TRACKERS DETECTED</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>
