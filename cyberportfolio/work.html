@@ -31,9 +31,42 @@
 
     <main class="cyber-main portfolio-page">
         <section class="portfolio-hero">
-            <h1 class="cyber-heading glitch" data-text="MISSION_LOGS">MISSION_LOGS</h1>
+            <h1 class="cyber-heading">MISSION_LOGS</h1>
             <p class="cyber-subtitle">// Case studies from security engagements</p>
             <div class="matrix-rain" aria-hidden="true"></div>
+            
+            <!-- Terminal Intro -->
+            <div class="terminal-intro">
+                <div class="terminal-header">
+                    <span class="terminal-title">user@alex-portfolio:~$</span>
+                    <div class="terminal-controls">
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                        <span class="control close"></span>
+                    </div>
+                </div>
+                <div class="terminal-content">
+                    <p><span class="prompt">$</span> whoami</p>
+                    <p>alex — cybersecurity specialist & cloud engineer</p>
+                    
+                    <p><span class="prompt">$</span> ls skills/</p>
+                    <div class="skills-grid">
+                        <span>cloud-security</span>
+                        <span>penetration-testing</span>
+                        <span>python</span>
+                        <span>aws</span>
+                        <span>malware-analysis</span>
+                        <span>network-defense</span>
+                    </div>
+                    
+                    <p><span class="prompt">$</span> cat projects/</p>
+                    <ul class="project-list">
+                        <li>- Malware Analysis & Detection System</li>
+                        <li>- Tic Tac Toe AI Implementation</li>
+                        <li>- Cloud Security Automation Tools</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <section class="portfolio-content">
@@ -170,46 +203,226 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Project 4 -->
-                <div class="project-card" data-category="pentest">
-                    <div class="project-header">
-                        <div class="project-badge pentest">RED TEAM</div>
-                        <h3 class="project-title">Corporate Network Breach Simulation</h3>
-                        <div class="project-meta">
-                            <span class="project-date">2020</span>
-                            <span class="project-duration">3 weeks</span>
+        <!-- Certifications Section -->
+        <section class="certifications-section">
+            <h2 class="section-heading glitch" data-text="CERTIFICATIONS_">CERTIFICATIONS_</h2>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <div class="certification-badge aws">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>AWS Certified Cloud Practitioner</h3>
+                        <p>Amazon Web Services</p>
+                        <span class="certification-date">Issued 2023</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>Google Cybersecurity Professional</h3>
+                        <p>Google Career Certificates</p>
+                        <span class="certification-date">Issued 2023</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge aws">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>AWS re/Start Graduate</h3>
+                        <p>Amazon Web Services</p>
+                        <span class="certification-date">Issued 2022</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge ibm">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>IBM Cyber Security Fundamentals</h3>
+                        <p>IBM SkillsBuild</p>
+                        <span class="certification-date">Issued 2022</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge microsoft">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>Microsoft Career Essentials in Cyber Security</h3>
+                        <p>Microsoft Learn</p>
+                        <span class="certification-date">Issued 2022</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge cisco">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>Cisco Ethical Hacker</h3>
+                        <p>Cisco Networking Academy</p>
+                        <span class="certification-date">Issued 2021</span>
+                    </div>
+                </div>
+                
+                <div class="certification-card">
+                    <div class="certification-badge microsoft">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="certification-info">
+                        <h3>Foundational C# with Microsoft</h3>
+                        <p>Microsoft Learn</p>
+                        <span class="certification-date">Issued 2021</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Projects Section -->
+        <section class="personal-projects">
+            <h2 class="section-heading glitch" data-text="PERSONAL_PROJECTS_">PERSONAL_PROJECTS_</h2>
+            
+            <div class="project-detail">
+                <div class="project-image">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span>TicTacToe.py</span>
+                            <div class="terminal-controls">
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                                <span class="control close"></span>
+                            </div>
+                        </div>
+                        <div class="terminal-content">
+                            <p><span class="prompt">></span> python tictactoe.py</p>
+                            <p>Welcome to Tic Tac Toe!</p>
+                            <p> 1 | 2 | 3 </p>
+                            <p>-----------</p>
+                            <p> 4 | 5 | 6 </p>
+                            <p>-----------</p>
+                            <p> 7 | 8 | 9 </p>
+                            <p>Player X, enter your move (1-9):</p>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <p>Simulated advanced persistent threat against Fortune 500 company, gaining domain admin privileges within 72 hours.</p>
-                        <ul class="project-tech">
-                            <li>Custom C2 framework</li>
-                            <li>Kerberoasting</li>
-                            <li>Golden Ticket attack</li>
-                        </ul>
-                    </div>
-                    <div class="project-footer">
+                </div>
+                <div class="project-description">
+                    <h3>Tic Tac Toe Project</h3>
+                    <p>Developed a Python-based Tic Tac Toe game with a user-friendly command-line interface. The project supports both single and multiplayer modes, showcasing strong logic implementation and clean code structure.</p>
+                    <div class="project-links">
                         <a href="#" class="cyber-button small">
                             <span class="glow"></span>
-                            <span class="text">CASE STUDY</span>
+                            <span class="text"><i class="fab fa-github"></i> GitHub</span>
                         </a>
-                        <div class="project-result">
-                            <i class="fas fa-user-secret"></i>
-                            <span>Full domain compromise</span>
+                        <a href="#" class="cyber-button small secondary">
+                            <span class="glow"></span>
+                            <span class="text"><i class="fas fa-code"></i> View Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-detail">
+                <div class="project-description">
+                    <h3>Malware Analysis & Detection System</h3>
+                    <p>Developed a comprehensive malware analysis platform using Python and machine learning techniques. The system analyzes file characteristics, behavior patterns, and network activity to detect potential malware threats.</p>
+                    <div class="tech-tags">
+                        <span>Python</span>
+                        <span>Machine Learning</span>
+                        <span>Cybersecurity</span>
+                        <span>YARA</span>
+                        <span>Sandboxing</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="cyber-button small">
+                            <span class="glow"></span>
+                            <span class="text"><i class="fab fa-github"></i> GitHub</span>
+                        </a>
+                        <a href="#" class="cyber-button small secondary">
+                            <span class="glow"></span>
+                            <span class="text"><i class="fas fa-file-alt"></i> Documentation</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <div class="malware-analysis-visual">
+                        <div class="scan-animation">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="detection-results">
+                            <div class="result-item malicious">
+                                <i class="fas fa-virus"></i>
+                                <span>trojan.exe - MALICIOUS</span>
+                            </div>
+                            <div class="result-item clean">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>document.pdf - CLEAN</span>
+                            </div>
+                            <div class="result-item suspicious">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>installer.msi - SUSPICIOUS</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="project-hover">
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="stat-value">0</span>
-                                <span class="stat-label">DETECTIONS</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">4</span>
-                                <span class="stat-label">PIVOTS</span>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section">
+            <h2 class="section-heading glitch" data-text="TECHNOLOGIES_&_TOOLS_">TECHNOLOGIES_&_TOOLS_</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-desktop"></i> Operating Systems</h3>
+                    <div class="skill-items">
+                        <span>Debian</span>
+                        <span>Windows</span>
+                        <span>Ubuntu</span>
+                        <span>MacOS</span>
+                        <span>Terminal</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Development Tools</h3>
+                    <div class="skill-items">
+                        <span>Git</span>
+                        <span>GitHub</span>
+                        <span>Discord</span>
+                        <span>VS Code</span>
+                        <span>Docker</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-shield-alt"></i> Security Tools</h3>
+                    <div class="skill-items">
+                        <span>Burp Suite</span>
+                        <span>Metasploit</span>
+                        <span>Wireshark</span>
+                        <span>Nmap</span>
+                        <span>Ghidra</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
+                    <div class="skill-items">
+                        <span>AWS</span>
+                        <span>Azure</span>
+                        <span>Google Cloud</span>
+                        <span>Docker</span>
+                        <span>Kubernetes</span>
                     </div>
                 </div>
             </div>
