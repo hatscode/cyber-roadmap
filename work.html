@@ -38,177 +38,134 @@
             </div>
         </section>
             <div class="matrix-rain" aria-hidden="true"></div>
-            
-            <!-- Terminal Intro -->
-            <div class="terminal-intro">
-                <div class="terminal-header">
-                    <span class="terminal-title">user@alex-portfolio:~$</span>
-                    <div class="terminal-controls">
-                        <span class="control minimize"></span>
-                        <span class="control maximize"></span>
-                        <span class="control close"></span>
-                    </div>
-                </div>
-                <div class="terminal-content">
-                    <p><span class="prompt">$</span> whoami</p>
-                    <p>alex — cybersecurity specialist & cloud engineer</p>
-                    
-                    <p><span class="prompt">$</span> ls skills/</p>
-                    <div class="skills-grid">
-                        <span>cloud-security</span>
-                        <span>penetration-testing</span>
-                        <span>python</span>
-                        <span>aws</span>
-                        <span>malware-analysis</span>
-                        <span>network-defense</span>
-                    </div>
-                    
-                    <p><span class="prompt">$</span> cat projects/</p>
-                    <ul class="project-list">
-                        <li>- Malware Analysis & Detection System</li>
-                        <li>- Tic Tac Toe AI Implementation</li>
-                        <li>- Cloud Security Automation Tools</li>
-                    </ul>
-                </div>
-            </div>
         </section>
 
         <section class="portfolio-content">
-            <div class="portfolio-filters">
-                <button class="cyber-button small active" data-filter="all">ALL MISSIONS</button>
-                <button class="cyber-button small" data-filter="pentest">PEN TEST</button>
-                <button class="cyber-button small" data-filter="research">RESEARCH</button>
-                <button class="cyber-button small" data-filter="consulting">CONSULTING</button>
-            </div>
-            
-            <div class="portfolio-grid">
-                <!-- Project 1 -->
-                <div class="project-card" data-category="pentest">
-                    <div class="project-header">
-                        <div class="project-badge pentest">PENETRATION TEST</div>
-                        <h3 class="project-title">E-Commerce Platform Assessment</h3>
-                        <div class="project-meta">
-                            <span class="project-date">2023</span>
-                            <span class="project-duration">2 weeks</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p>Comprehensive security assessment of a large e-commerce platform resulting in identification of critical vulnerabilities including SQL injection and privilege escalation flaws.</p>
-                        <ul class="project-tech">
-                            <li>Burp Suite</li>
-                            <li>OWASP ZAP</li>
-                            <li>Custom Python scripts</li>
-                        </ul>
-                    </div>
-                    <div class="project-footer">
-                        <a href="#" class="cyber-button small">
-                            <span class="glow"></span>
-                            <span class="text">CASE DETAILS</span>
-                        </a>
-                        <div class="project-result">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>12 Critical vulnerabilities patched</span>
-                        </div>
-                    </div>
-                    <div class="project-hover">
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="stat-value">94%</span>
-                                <span class="stat-label">COVERAGE</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">A+</span>
-                                <span class="stat-label">FINAL GRADE</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card" data-category="research">
-                    <div class="project-header">
-                        <div class="project-badge research">VULN RESEARCH</div>
-                        <h3 class="project-title">IoT Device Exploit Chain</h3>
-                        <div class="project-meta">
-                            <span class="project-date">2022</span>
-                            <span class="project-duration">6 months</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p>Discovered and weaponized an exploit chain affecting popular IoT devices leading to remote code execution and firmware extraction.</p>
-                        <ul class="project-tech">
-                            <li>Ghidra</li>
-                            <li>QEMU</li>
-                            <li>ROP chain development</li>
-                        </ul>
-                    </div>
-                    <div class="project-footer">
-                        <a href="#" class="cyber-button small">
-                            <span class="glow"></span>
-                            <span class="text">RESEARCH PAPER</span>
-                        </a>
-                        <div class="project-result">
-                            <i class="fas fa-bug"></i>
-                            <span>CVE-2022-XXXXX assigned</span>
-                        </div>
-                    </div>
-                    <div class="project-hover">
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="stat-value">15</span>
-                                <span class="stat-label">DEVICES</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">6.8</span>
-                                <span class="stat-label">CVSS</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card" data-category="consulting">
-                    <div class="project-header">
-                        <div class="project-badge consulting">CONSULTING</div>
-                        <h3 class="project-title">Financial Institution Security Audit</h3>
-                        <div class="project-meta">
-                            <span class="project-date">2021</span>
-                            <span class="project-duration">1 month</span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p>Conducted full security audit for multinational bank, identifying weaknesses in their internal security controls and monitoring systems.</p>
-                        <ul class="project-tech">
-                            <li>Nmap</li>
-                            <li>Metasploit</li>
-                            <li>Cobalt Strike</li>
-                        </ul>
-                    </div>
-                    <div class="project-footer">
-                        <a href="#" class="cyber-button small">
-                            <span class="glow"></span>
-                            <span class="text">READ REPORT</span>
-                        </a>
-                        <div class="project-result">
-                            <i class="fas fa-chart-line"></i>
-                            <span>37% risk reduction</span>
-                        </div>
-                    </div>
-                    <div class="project-hover">
-                        <div class="project-stats">
-                            <div class="stat">
-                                <span class="stat-value">100%</span>
-                                <span class="stat-label">SUCCESS</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">42</span>
-                                <span class="stat-label">RECOMMENDATIONS</span>
-                            </div>
-                        </div>
-                    </div>
+    <div class="portfolio-filters">
+        <button class="cyber-button small active" data-filter="all">ALL PROJECTS</button>
+        <button class="cyber-button small" data-filter="htb">HACK THE BOX</button>
+        <button class="cyber-button small" data-filter="writeups">WRITEUPS</button>
+        <button class="cyber-button small" data-filter="tools">TOOLS</button>
+    </div>
+    
+    <div class="portfolio-grid">
+        <!-- HTB Machine -->
+        <div class="project-card" data-category="htb">
+            <div class="project-header">
+                <div class="project-badge htb">HTB MACHINE</div>
+                <h3 class="project-title">Starting Point: Meow</h3>
+                <div class="project-meta">
+                    <span class="project-date">2023</span>
+                    <span class="project-difficulty">Easy</span>
                 </div>
             </div>
-        </section>
+            <div class="project-content">
+                <p>My first HTB machine! Learned basic enumeration techniques and Telnet vulnerabilities.</p>
+                <ul class="project-tech">
+                    <li>Nmap</li>
+                    <li>Telnet</li>
+                    <li>Basic Linux</li>
+                </ul>
+            </div>
+            <div class="project-footer">
+                <a href="https://github.com/yourusername/htb-writeups/blob/main/meow.md" class="cyber-button small">
+                    <span class="text">VIEW WRITEUP</span>
+                </a>
+                <div class="project-result">
+                    <i class="fas fa-flag"></i>
+                    <span>Rooted in 30 mins</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Writeup Example -->
+        <div class="project-card" data-category="writeups">
+            <div class="project-header">
+                <div class="project-badge writeups">WRITEUP</div>
+                <h3 class="project-title">HTB: Lame</h3>
+                <div class="project-meta">
+                    <span class="project-date">2023</span>
+                    <span class="project-difficulty">Easy</span>
+                </div>
+            </div>
+            <div class="project-content">
+                <p>Detailed walkthrough of exploiting Samba vulnerability on this retired HTB machine.</p>
+                <ul class="project-tech">
+                    <li>Searchsploit</li>
+                    <li>Metasploit</li>
+                    <li>Privilege Escalation</li>
+                </ul>
+            </div>
+            <div class="project-footer">
+                <a href="https://github.com/yourusername/htb-writeups/blob/main/lame.md" class="cyber-button small">
+                    <span class="text">READ WRITEUP</span>
+                </a>
+                <div class="project-result">
+                    <i class="fas fa-star"></i>
+                    <span>First privilege escalation</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Example -->
+        <div class="project-card" data-category="tools">
+            <div class="project-header">
+                <div class="project-badge tools">TOOL</div>
+                <h3 class="project-title">Simple Port Scanner</h3>
+                <div class="project-meta">
+                    <span class="project-date">2023</span>
+                    <span class="project-language">Python</span>
+                </div>
+            </div>
+            <div class="project-content">
+                <p>Basic Python script to scan for open ports, my first networking tool.</p>
+                <ul class="project-tech">
+                    <li>Python</li>
+                    <li>Sockets</li>
+                    <li>Threading</li>
+                </ul>
+            </div>
+            <div class="project-footer">
+                <a href="https://github.com/yourusername/cyber-tools/blob/main/port_scanner.py" class="cyber-button small">
+                    <span class="text">VIEW CODE</span>
+                </a>
+                <div class="project-result">
+                    <i class="fas fa-code"></i>
+                    <span>150+ lines</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Project -->
+        <div class="project-card" data-category="writeups">
+            <div class="project-header">
+                <div class="project-badge writeups">LEARNING</div>
+                <h3 class="project-title">TryHackMe: Overpass</h3>
+                <div class="project-meta">
+                    <span class="project-date">2023</span>
+                    <span class="project-difficulty">Beginner</span>
+                </div>
+            </div>
+            <div class="project-content">
+                <p>Walkthrough of a beginner-friendly room covering basic web app security.</p>
+                <ul class="project-tech">
+                    <li>Gobuster</li>
+                    <li>John the Ripper</li>
+                    <li>SUID binaries</li>
+                </ul>
+            </div>
+            <div class="project-footer">
+                <a href="https://github.com/yourusername/thm-writeups/blob/main/overpass.md" class="cyber-button small">
+                    <span class="text">READ NOTES</span>
+                </a>
+                <div class="project-result">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>First web app hack</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Certifications Section -->
         <section class="certifications-section">
@@ -288,6 +245,28 @@
                         <h3>Foundational C# with Microsoft</h3>
                         <p>Microsoft Learn</p>
                         <span class="certification-date">Issued 2021</span>
+                    </div>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-badge huawei">
+                        <i class="fas fa-shield-alt"></i> <!-- Changed from Microsoft icon -->
+                    </div>
+                    <div class="certification-info">
+                        <h3>HCIA Security</h3>
+                        <p class="certification-issuer">Huawei Talent</p>
+                        <span class="certification-date">Issued 2025</span>
+                    </div>
+                </div>
+
+                <div class="certification-card">
+                    <div class="certification-badge huawei">
+                        <i class="fas fa-database"></i> <!-- More relevant icon for datacom -->
+                    </div>
+                    <div class="certification-info">
+                        <h3>HCIA Datacom</h3>
+                        <p class="certification-issuer">Huawei Talent</p>
+                        <span class="certification-date">Issued 2025</span>
                     </div>
                 </div>
             </div>
@@ -433,55 +412,39 @@
         </section>
     </main>
 
+   <!-- Cyberpunk Footer -->
     <footer class="cyber-footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <span class="glow-text">// CYBER_SECURITY</span>
-                <p class="footer-tagline">Protecting digital assets through offensive security</p>
+                <div class="footer-logo">// CYBER_</div>
+                <p class="footer-tagline">Securing digital frontiers since 2023</p>
             </div>
-            
             <div class="footer-links">
-                <h4 class="footer-heading">NAVIGATION</h4>
+                <h3 class="footer-heading">NAVIGATION</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="/"><i class="fas fa-terminal"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-user-secret"></i> About</a></li>
+                    <li><a href="work.html"><i class="fas fa-folder"></i> Projects</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
                 </ul>
             </div>
-            
-            <div class="footer-contact">
-                <h4 class="footer-heading">CONTACT</h4>
-                <ul>
-                    <li><i class="fas fa-envelope"></i> secure@example.com</li>
-                    <li><i class="fas fa-key"></i> PGP: 0xABCDEF123456</li>
-                    <li><i class="fas fa-phone"></i> Signal: +1 234 567 890</li>
-                </ul>
-            </div>
-            
             <div class="footer-social">
-                <h4 class="footer-heading">CONNECT</h4>
+                <h3 class="footer-heading">CONNECT</h3>
                 <div class="social-icons">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="HackTheBox"><i class="fas fa-cube"></i></a>
-                </div>
-                <div class="footer-legal">
-                    <p>&copy; 2023 CyberSecurity Specialist</p>
-                    <p>All rights reserved</p>
+                    <a href="https://github.com/stilla1ex" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/stilla1ex" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://x.com/stilla1ex" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.com/users/stilla1ex" target="_blank"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
         </div>
-        
         <div class="footer-bar">
             <div class="security-status">
                 <span class="status-indicator active"></span>
-                <span>SECURE CONNECTION ESTABLISHED</span>
+                <span>ENCRYPTED CONNECTION: ACTIVE</span>
             </div>
-            <div class="footer-meta">
-                <span>ENCRYPTED: AES-256</span>
-                <span>LAST AUDIT: 2023-06-15</span>
+            <div class="footer-copyright">
+                <p>© 2024 STILL_A1EX | ALL RIGHTS RESERVED</p>
             </div>
         </div>
     </footer>
