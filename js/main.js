@@ -397,3 +397,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     });
 });
+
+
+// Navbar Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        navToggle.classList.toggle('active');
+    });
+});
