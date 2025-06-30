@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Contact | CyberSecurity Specialist</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,6 +15,59 @@
         emailjs.init("IMY3h3Xx7ZDzeCH00");
         })();
     </script>
+    <style>
+        /* Cyber Notification Styles */
+        .cyber-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            background: #0a0a12;
+            border: 1px solid #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+            color: #00f0ff;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            max-width: 300px;
+        }
+        
+        .cyber-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cyber-notification.error {
+            border-color: #ff003c;
+            color: #ff003c;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
+        }
+        
+        .cyber-notification i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .cyber-notification .notification-content {
+            flex: 1;
+        }
+        
+        .cyber-notification .close-notification {
+            margin-left: 15px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .cyber-notification .close-notification:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
    <div id="particles-js"></div>
@@ -95,7 +149,7 @@
         </section>
     </main>
 
-      <!-- Cyberpunk Footer -->
+    <!-- Cyberpunk Footer -->
     <footer class="cyber-footer">
         <div class="footer-grid">
             <div class="footer-brand">
@@ -176,11 +230,17 @@
                 emailjs.send(serviceID, templateID, params)
                     .then(res => {
                         document.getElementById("contact-form").reset();
-                        showNotification("Message securely delivered!");
+                        showCyberNotification(
+                            "<i class='fas fa-lock'></i> Message encrypted & delivered!", 
+                            "success"
+                        );
                     })
                     .catch(err => {
                         console.error("Error:", err);
-                        showNotification("Transmission failed. Please try again.", true);
+                        showCyberNotification(
+                            "<i class='fas fa-exclamation-triangle'></i> Transmission failed!", 
+                            "error"
+                        );
                     })
                     .finally(() => {
                         btnText.textContent = originalBtnText;
@@ -189,30 +249,43 @@
             }, 800);
         }
 
-        function showNotification(message, isError = false) {
-            let notification = document.querySelector('.notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.className = 'notification';
-                document.body.appendChild(notification);
-            }
+        // Cyberpunk notification system
+        function showCyberNotification(content, type = "success") {
+            // Remove any existing notifications
+            const existing = document.querySelector('.cyber-notification');
+            if (existing) existing.remove();
             
-            notification.textContent = message;
-            notification.className = 'notification';
-            if (isError) {
-                notification.classList.add('error');
-            }
+            const notification = document.createElement('div');
+            notification.className = `cyber-notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">${content}</div>
+                <div class="close-notification"><i class="fas fa-times"></i></div>
+            `;
             
-            notification.classList.add('show');
+            document.body.appendChild(notification);
             
+            // Trigger the show animation
             setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            // Close button functionality
+            notification.querySelector('.close-notification').addEventListener('click', () => {
                 notification.classList.remove('show');
                 setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
+                    notification.remove();
                 }, 300);
-            }, 3000);
+            });
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }
+            }, 5000);
         }
 
         // Add subtle animation to form inputs on focus

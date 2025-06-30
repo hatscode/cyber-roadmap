@@ -409,3 +409,97 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.toggle('active');
     });
 });
+
+
+
+// Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Email sending function
+        function sendEmail(event) {
+            event.preventDefault();
+
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const originalBtnText = btnText.textContent;
+            btnText.textContent = 'Encrypting...';
+            submitBtn.disabled = true;
+
+            // Simulate encryption delay for UX
+            setTimeout(() => {
+                btnText.textContent = 'Sending...';
+                
+                const params = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    message: document.getElementById("message").value,
+                };
+
+                const serviceID = "service_w4yeypa";
+                const templateID = "template_wp5h21r";
+
+                emailjs.send(serviceID, templateID, params)
+                    .then(res => {
+                        document.getElementById("contact-form").reset();
+                        showNotification("Message securely delivered!");
+                    })
+                    .catch(err => {
+                        console.error("Error:", err);
+                        showNotification("Transmission failed. Please try again.", true);
+                    })
+                    .finally(() => {
+                        btnText.textContent = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+            }, 800);
+        }
+
+        function showNotification(message, isError = false) {
+            let notification = document.querySelector('.notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.className = 'notification';
+                document.body.appendChild(notification);
+            }
+            
+            notification.textContent = message;
+            notification.className = 'notification';
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Add subtle animation to form inputs on focus
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('.form-icon').style.color = 'var(--accent-blue)';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.querySelector('.form-icon').style.color = 'var(--text-secondary)';
+            });
+        });
