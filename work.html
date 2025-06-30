@@ -7,11 +7,50 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&family=Courier+Prime&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            color: #00ff9d;
+            font-family: 'Courier Prime', monospace;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 255, 157, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ff9d;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading Screen (must be first element in body) -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div>INITIALIZING PORTFOLIO...</div>
+    </div>
+
     <div id="particles-js"></div>
     <div class="cyber-overlay"></div>
     
@@ -251,7 +290,7 @@
 
                 <div class="certification-card">
                     <div class="certification-badge huawei">
-                        <i class="fas fa-shield-alt"></i> <!-- Changed from Microsoft icon -->
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <div class="certification-info">
                         <h3>HCIA Security</h3>
@@ -262,7 +301,7 @@
 
                 <div class="certification-card">
                     <div class="certification-badge huawei">
-                        <i class="fas fa-database"></i> <!-- More relevant icon for datacom -->
+                        <i class="fas fa-database"></i>
                     </div>
                     <div class="certification-info">
                         <h3>HCIA Datacom</h3>
@@ -451,5 +490,33 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // Show loading screen immediately
+            loadingScreen.style.display = 'flex';
+            
+            // Hide loading screen when all assets are loaded
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1000); // Minimum 1 second display
+            });
+            
+            // Fallback in case load event doesn't fire
+            setTimeout(() => {
+                if (loadingScreen.style.display !== 'none') {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
+            }, 5000); // Maximum 5 second display
+        });
+    </script>
 </body>
 </html>

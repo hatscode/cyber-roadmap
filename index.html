@@ -10,6 +10,56 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600&family=Courier+Prime&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        #earth-container {
+            position: absolute;
+            right: 1%;
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+        }
+        
+        @media (max-width: 1024px) {
+            #earth-container {
+                position: relative;
+                right: auto;
+                margin-top: 3rem;
+                width: 300px;
+                height: 300px;
+            }
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            color: #00ff9d;
+            font-family: 'Courier Prime', monospace;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 255, 157, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ff9d;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <div id="particles-js"></div>
@@ -38,18 +88,24 @@
                 </h1>
                 <p class="cyber-subtitle">// Penetration Testing • Vulnerability Research • Secure Architecture</p>
                 <div class="hero-buttons">
-                    <button class="cyber-button">
-                        <span class="glow"></span>
-                        <span class="text"><a href="#">ABOUT_ME</a></span>
-                    </button>
-                    <button class="cyber-button secondary">
-                        <span class="glow"></span>
-                        <span class="text"><a href="#">CONTACT</a></span>
-                    </button>
+                    <a href="about.html">
+                        <button class="cyber-button">
+                            <span class="glow"></span>
+                            <span class="text">ABOUT_ME</span>
+                        </button>
+                    </a>
+                    <a href="contact.html">
+                        <button class="cyber-button secondary">
+                            <span class="glow"></span>
+                            <span class="text">CONTACT</span>
+                        </button>
+                    </a>                 
                 </div>
             </div>
-            <div class="radar-container">
-                <div class="radar"></div>
+            <div id="earth-container" style="width: 700px; height: 350px;"></div>
+            <div class="loading-screen" id="loadingScreen">
+                <div class="loading-spinner"></div>
+                <div>INITIALIZING HOME PAGE...</div>
             </div>
         </section>
     </main>
@@ -93,5 +149,122 @@
 
     <script src="js/particles.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // Scene setup with transparent background
+            const scene = new THREE.Scene();
+            scene.background = null; // Transparent background
+            
+            // Camera setup
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 1.8; // Adjusted for better view of the sphere
+            
+            // Renderer setup with transparency
+            const renderer = new THREE.WebGLRenderer({ 
+                antialias: true,
+                alpha: true // Enable transparency
+            });
+            renderer.setSize(document.getElementById('earth-container').offsetWidth, document.getElementById('earth-container').offsetHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('earth-container').appendChild(renderer.domElement);
+            
+            // Lighting - increased intensity for better visibility
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+            
+            // Create a perfect sphere with high resolution
+            const geometry = new THREE.SphereGeometry(1, 128, 128);
+            
+            // Load earth texture
+            const textureLoader = new THREE.TextureLoader();
+            const earthTexture = textureLoader.load(
+                'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
+                () => {
+                    // Texture loaded successfully
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 500);
+                },
+                undefined, // Progress callback
+                () => {
+                    // Error callback
+                    loadingScreen.querySelector('div').textContent = 'TEXTURE LOAD FAILED - USING DEFAULT';
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 1000);
+                }
+            );
+            
+            // Earth material with smooth shading
+            const material = new THREE.MeshPhongMaterial({
+                map: earthTexture,
+                specular: new THREE.Color(0x111111),
+                shininess: 5,
+                smoothShading: true
+            });
+            
+            // Create the perfect sphere
+            const earth = new THREE.Mesh(geometry, material);
+            scene.add(earth);
+            
+            // Controls - smooth orbiting
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 1.5;
+            controls.maxDistance = 3;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            controls.enableZoom = false; // Disable zooming for consistent size
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = document.getElementById('earth-container').offsetWidth / document.getElementById('earth-container').offsetHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(document.getElementById('earth-container').offsetWidth, document.getElementById('earth-container').offsetHeight);
+            });
+            
+            // Animation loop
+            const animate = () => {
+                requestAnimationFrame(animate);
+                
+                // Smooth rotation
+                earth.rotation.y += 0.001;
+                
+                // Update controls
+                controls.update();
+                
+                // Render scene
+                renderer.render(scene, camera);
+            };
+            
+            // Start animation
+            animate();
+            
+            // Add timeout for loading screen
+            setTimeout(() => {
+                if (loadingScreen.style.display !== 'none') {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
+            }, 5000); // Maximum 5 second loading screen
+        });
+    </script>
 </body>
 </html>
