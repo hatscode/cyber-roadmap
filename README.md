@@ -1,3 +1,4 @@
+<img width="2760" height="5176" alt="image" src="https://github.com/user-attachments/assets/203de3a8-9569-45f2-b12e-61581941ce07" />
 # 90-Day Red Team & Bug Bounty Roadmap
 
 A concise learning plan and toolkit for anyone aiming for a **Junior Red Team** role and active **Bugcrowd** hunting in 90 days.
@@ -71,3 +72,4 @@ Open an issue or submit a pull request!
 ---
 
 *This repository is for educational purposes only. Follow all legal and ethical guidelines when performing security research.*
+
