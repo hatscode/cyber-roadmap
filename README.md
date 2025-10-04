@@ -73,3 +73,10 @@ Open an issue or submit a pull request!
 
 *This repository is for educational purposes only. Follow all legal and ethical guidelines when performing security research.*
 
+
+Hackerone
+b1dfd16c7abd3a59
+b7a81145d087118b
+3697dd27b4f2ac23
+7477714af3efab86
+4f2f265c9bb3135d
