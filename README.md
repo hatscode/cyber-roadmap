@@ -81,4 +81,4 @@
 
 The difference between someone I hire and someone I don't? **Depth over breadth**. Master Burp Suite and Python deeply rather than superficially knowing 50 tools.
 
-What's your current experience level? I can tailor this list more specifically to your background.
+
